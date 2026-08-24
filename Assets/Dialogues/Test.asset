@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b669f14d065511543bba92dc21be9a7f, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  charName: Brian
+  charName: 'Silva '
   charVoicelines:
-  - {fileID: 8300000, guid: deab2c7a47c2e1a41924cd3df1ddbcc9, type: 3}
-  - {fileID: 8300000, guid: df2f9b5771985db469c0e41af368e97b, type: 3}
-  - {fileID: 8300000, guid: 5c052593ec2febe4da11b1e35ddd2045, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   lines:
-  - Hello There! This is the first test for the dialogue!
-  - My name is Brian!
-  - Nice to meet you :)
+  - Welcome to Frostbite
+  - Take a look a around, peek a little, no one's watching  ;)
+  - Please refer to the Read Me if you haven't
+  - Keep in mind, you can't die.....yet
+  - However, please try to keep the orange thingies from getting to you.
+  - Have fun!

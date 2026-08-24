@@ -83,8 +83,8 @@ public class RadarEnemy : MonoBehaviour
 
         if (collision.CompareTag("Tailsman"))
         {
-            Debug.Log("Enemy Destroyed");
             spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
     }

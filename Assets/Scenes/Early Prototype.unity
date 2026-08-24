@@ -3356,7 +3356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0009070224, y: 0.0076643927, z: 0.000006951353, w: 0.9999702}
+  m_LocalRotation: {x: -0.00090929423, y: 0.0076643927, z: 0.000006969102, w: 0.9999702}
   m_LocalPosition: {x: 0.036, y: 0.6179999, z: 0.506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4864,6 +4864,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &473840722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473840723}
+  m_Layer: 0
+  m_Name: Game Master
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473840723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473840722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.36579, y: 0.87451, z: -0.16185}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &479857562
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,7 +5928,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 85}
+  m_AnchoredPosition: {x: 0, y: 171.58}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &614163228
@@ -7387,7 +7418,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 729906590}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 384436154}
+        m_TargetAssemblyTypeName: CraftingSystem, Assembly-CSharp
+        m_MethodName: CraftItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 894c4f3f27f2fa44996feafec16ab134, type: 2}
+          m_ObjectArgumentAssemblyTypeName: ItemRecipes, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &729906590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17056,7 +17099,7 @@ MonoBehaviour:
   dialogueText: {fileID: 597819084}
   textSpeed: 0.01
   voicePoint: {fileID: 1977708696}
-  startTime: 0.01
+  startTime: 5
 --- !u!4 &1721071188
 Transform:
   m_ObjectHideFlags: 0
@@ -20369,7 +20412,7 @@ Transform:
   m_GameObject: {fileID: 2056176883}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 2.3283064e-10, w: 1}
-  m_LocalPosition: {x: 0.15024891, y: -0.61, z: 2.143992}
+  m_LocalPosition: {x: 0.15024891, y: -0.77, z: 1.068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21326,8 +21369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraMove
   player: {fileID: 242142124}
   gameCursor: {fileID: 0}
-  mouseSensitivityX: 10
-  mouseSensitivityY: 20
+  mouseSensitivityX: 20
+  mouseSensitivityY: 40
   controllerSensitivityX: 100
   controllerSensitivityY: 150
 --- !u!1 &2130818381
@@ -22934,6 +22977,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 473840723}
   - {fileID: 596075542}
   - {fileID: 466239079}
   - {fileID: 242142124}
