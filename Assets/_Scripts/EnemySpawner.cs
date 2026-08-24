@@ -49,6 +49,7 @@ public class EnemySpawner : MonoBehaviour
             spawnedEnemy = Instantiate(enemyOne, spawnPoint.anchoredPosition, Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.transform.SetParent(spawnPoint, false);
+            spawnedEnemy.GetComponent<RadarEnemy>().SetSpawner(this.GetComponent<EnemySpawner>());
             spawnedEnemy.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
             
             switch (randomIndex)
@@ -92,6 +93,7 @@ public class EnemySpawner : MonoBehaviour
                 randomIndex = Random.Range(0, spawnPoints.Count);
                 spawnPoint = spawnPoints[randomIndex];
                 spawnedEnemy.GetComponent<RectTransform>().position = spawnPoint.position;
+                spawnedEnemy.GetComponent<Image>().enabled = false;
                 spawnedEnemy.transform.SetParent(spawnPoint);
 
                 switch (randomIndex)
@@ -125,6 +127,17 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public int GetSpawnNumber()
+    {
+        return numberSpawned;
+    }
+
+    public int SetSpawnNumber(int number)
+    {
+        numberSpawned = number;
+        return numberSpawned;
     }
 
  

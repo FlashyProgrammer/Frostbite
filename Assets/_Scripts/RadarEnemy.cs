@@ -11,6 +11,8 @@ public class RadarEnemy : MonoBehaviour
     [Header("Movement Ring Points")]
     public List<RectTransform> movePath;
 
+
+    private EnemySpawner spawner;
     private bool enemyOverlap;
     private int currentPoint;
     private RectTransform rectTransform;
@@ -78,12 +80,22 @@ public class RadarEnemy : MonoBehaviour
         {
             enemyOverlap = false;
         }
+
+        if (collision.CompareTag("Tailsman"))
+        {
+            Debug.Log("Enemy Destroyed");
+            spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
+            Destroy(gameObject);
+        }
     }
-
-
     public bool IsOverlapped()
     {
         return enemyOverlap;
+    }
+    public EnemySpawner SetSpawner(EnemySpawner enemySpawner)
+    {
+        spawner = enemySpawner;
+        return spawner;
     }
 
 }

@@ -9,6 +9,9 @@ TagManager:
   - Placement Point
   - Trap
   - Item
+  - Tailsman
+  - Crafting Table
+  - Generator
   layers:
   - Default
   - TransparentFX

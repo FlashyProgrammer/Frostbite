@@ -1,3 +1,5 @@
+
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
@@ -10,17 +12,14 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform followPoint;
     [SerializeField] private Transform dropPoint;
 
+    [SerializeField] private TextMeshProUGUI interactText;
+    [SerializeField] private GameObject craftingWindow;
+
     [Header("Inventory Management")]
     [SerializeField] private InventorySystem inventory;
-
-    private GameObject handItem;
-    private bool canPlaceItem;
-    private int buttonCounter;
-    private bool itemInHand;
+    private int buttonCounter = 2;
     private GameObject currentInteractable;
     private PlayerMovement player;
-    private bool interactPressed;
-
     private TrapPlacement placementPoint;
 
     private void Awake()
@@ -30,8 +29,8 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        RayCasting();
         ObjectInteractions();
+        RayCasting();
     }
 
     private void RayCasting()
@@ -54,104 +53,93 @@ public class PlayerInteraction : MonoBehaviour
 
         if (currentInteractable != null)
         {
-          
-            if (currentInteractable.CompareTag("Radar") && interactPressed && !itemInHand)
+            interactText.enabled = true;
+            interactText.text = currentInteractable.name;
+
+            if (currentInteractable.CompareTag("Radar") && buttonCounter == 0) 
             {
                 currentInteractable.GetComponent<Radar>().showRadar();
+                interactText.enabled = false;
                 mouseLook.enabled = false;
                 player.enabled = false;
             }
-            else if (currentInteractable.CompareTag("Radar") && !interactPressed)
+            if (currentInteractable.CompareTag("Radar") && buttonCounter == 2)
             {
                 currentInteractable.GetComponent<Radar>().hideRadar();
+                interactText.enabled = false;
                 mouseLook.enabled = true;
                 player.enabled = true; 
             }
 
 
-            if (currentInteractable.CompareTag("Item") && interactPressed && !itemInHand)
-            {
-                itemInHand = true;
-                currentInteractable.transform.parent = followPoint;
-                currentInteractable.transform.position = followPoint.position;
-                handItem = currentInteractable;
-                handItem.GetComponent<Collider>().isTrigger = false;
-
-                inventory.AddItem(currentInteractable);
+            if (currentInteractable.CompareTag("Item") && buttonCounter == 0)
+            {   
+                var itemData = currentInteractable.GetComponent<ItemTrigger>().ItemProperties();
+                interactText.enabled = false;
+                inventory.AddItem(itemData, itemData.baseQuantity);
+                Destroy(currentInteractable);
+                buttonCounter = 2;
             }
 
-            if (currentInteractable.CompareTag("Placement Point") && handItem != null)
+            if (currentInteractable.CompareTag("Placement Point") && buttonCounter == 0)
             {
-                canPlaceItem = true;
+
+                interactText.enabled = false;
                 placementPoint = currentInteractable.GetComponent<TrapPlacement>();
+                buttonCounter = 2;
             }
-
-            else
+            if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 0)
             {
-                canPlaceItem = false;
+                interactText.enabled = false;
+                craftingWindow.SetActive(true);
+                mouseLook.enabled = false;
+                player.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 2)
+            {
+                interactText.enabled = false;
+                craftingWindow.SetActive(false);
+                mouseLook.enabled = true;
+                player.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
-    }
 
-    private void DropItem()
-    {
-        if (handItem.activeInHierarchy)
+        else
         {
-            itemInHand = false;
-            handItem.transform.parent = null;
-            handItem.transform.position = dropPoint.position;
-            inventory.RemoveItem(handItem);
-            handItem = null;
-
+            interactText.enabled = false;
         }
     }
+
+    public GameObject GetInteractable()
+    {
+        return currentInteractable;
+    }
+
     public void Interact(InputAction.CallbackContext context)
     {
-        if (context.performed && currentInteractable != null && buttonCounter == 0)
+        if (context.performed && buttonCounter == 0 && currentInteractable != null)
         {
-            interactPressed = true;
-            buttonCounter++;
-           
-        }
-
-        if (context.canceled && buttonCounter == 1)
-        {
+   
             buttonCounter++;
         }
 
-        if (context.performed && buttonCounter == 2)
+        if(context.canceled && buttonCounter == 1 && currentInteractable != null)
         {
-            if (canPlaceItem)
+            buttonCounter++;
+        }
+
+        if (context.performed && buttonCounter == 2 && currentInteractable != null)
+        {
+            if (placementPoint!= null)
             {
                 placementPoint.SpawnTrap();
             }
-            DropItem();
-            interactPressed = false;
+         
             buttonCounter = 0;
-
         }
 
-    }
-    public GameObject GetItem()
-    {
-        return handItem;
-    }
-    public void SetItem(GameObject item)
-    {
-        handItem = item;
-        item.gameObject.SetActive(true);
-    }
-
-    public void HideItem(GameObject item)
-    {
-        item.gameObject.SetActive(false);
-    }
-
-    public void CanPick()
-    {
-        itemInHand = false;
-        interactPressed = false;
-        buttonCounter = 0;
 
     }
 

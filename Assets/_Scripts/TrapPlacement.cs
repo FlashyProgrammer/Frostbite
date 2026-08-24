@@ -8,13 +8,14 @@ public class TrapPlacement : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private GameObject tailsmanRadar;
-    private GameObject currentItem;
+    private Item currentItem;
 
     [Header("Spawning")]
     [SerializeField] private RectTransform radarSpawnPoint;
     [SerializeField] private Transform groundSpawnPoint;
-    [SerializeField] private PlayerInteraction playerInteractions;
+    [SerializeField] private InventorySystem inventory;
 
+    private GameObject itemHand;
     private List<GameObject> activeTraps;
 
     private void Awake()
@@ -23,19 +24,22 @@ public class TrapPlacement : MonoBehaviour
     }
     public void SpawnTrap()
     {
-        currentItem = playerInteractions.GetComponent<PlayerInteraction>().GetItem();
-        var itemProperties = currentItem.GetComponent<ItemTrigger>().ItemProperties();
+        currentItem = inventory.GetSlot().item;
+        itemHand = inventory.GetHandVisual();
 
-        if (itemProperties.itemName == "Tailsman")
+        if (currentItem != null)
         {
-            Debug.Log("Trap spawned");
-            var radarTrap = Instantiate(itemProperties.spritePrefab, radarSpawnPoint.anchoredPosition, Quaternion.identity);
-            radarTrap.transform.SetParent(radarSpawnPoint, false);
-            Debug.Log(radarTrap);
-            activeTraps.Add(radarTrap);
-            Instantiate(itemProperties.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
+
+            if (currentItem.itemName == "Tailsman")
+            {
+                var radarTrap = Instantiate(currentItem.spriteTrapPrefab, radarSpawnPoint.anchoredPosition, Quaternion.identity);
+                radarTrap.transform.SetParent(radarSpawnPoint, false);
+                activeTraps.Add(radarTrap);
+                Instantiate(currentItem.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
+            }
+            Destroy(itemHand);
         }
-        Destroy(currentItem);
+
     }
 
     public List<GameObject> GetActiveTraps() 

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714a52ea50482ff4fa53e99782ca9a22, type: 3}
+  m_Name: Cloth
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemName: Cloth
+  itemDescription: 
+  itemIcon: {fileID: 21300000, guid: 3053b14b6b89b2d41ad13bb9360521e1, type: 3}
+  spriteTrapPrefab: {fileID: 0}
+  itemPrefab: {fileID: 6174646263663466836, guid: 4fef54be38282fb49b5dbf6a0c259520, type: 3}
+  handPrefab: {fileID: 6174646263663466836, guid: 4fef54be38282fb49b5dbf6a0c259520, type: 3}
+  isTrap: 0
+  isMaterial: 1
+  canStack: 0
+  baseQuantity: 1
+  stackLimit: 5

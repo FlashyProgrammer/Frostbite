@@ -39,7 +39,10 @@ public class Radar : MonoBehaviour
         {
             foreach (var enemy in spawner.activeEnemies)
             {
-                enemy.GetComponent<Image>().enabled = false;
+                if(enemy != null)
+                {
+                    enemy.GetComponent<Image>().enabled = false;
+                }
             }
 
             if (trapPlacement.GetActiveTraps() != null)
@@ -57,7 +60,10 @@ public class Radar : MonoBehaviour
         {
             foreach (var enemy in spawner.activeEnemies)
             {
-                enemy.GetComponent<Image>().enabled = true;
+                if (enemy != null)
+                {
+                    enemy.GetComponent<Image>().enabled = true;
+                }
             }
 
             if (trapPlacement.GetActiveTraps() != null)
