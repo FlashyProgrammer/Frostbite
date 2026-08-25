@@ -66,7 +66,6 @@ public class PlayerInteraction : MonoBehaviour
             if (currentInteractable.CompareTag("Radar") && buttonCounter == 2)
             {
                 currentInteractable.GetComponent<Radar>().hideRadar();
-                interactText.enabled = false;
                 mouseLook.enabled = true;
                 player.enabled = true; 
             }
@@ -86,6 +85,7 @@ public class PlayerInteraction : MonoBehaviour
 
                 interactText.enabled = false;
                 placementPoint = currentInteractable.GetComponent<TrapPlacement>();
+                placementPoint.SpawnTrap();
                 buttonCounter = 2;
             }
             if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 0)
@@ -98,7 +98,6 @@ public class PlayerInteraction : MonoBehaviour
             }
             if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 2)
             {
-                interactText.enabled = false;
                 craftingWindow.SetActive(false);
                 mouseLook.enabled = true;
                 player.enabled = true;
@@ -132,10 +131,6 @@ public class PlayerInteraction : MonoBehaviour
 
         if (context.performed && buttonCounter == 2 && currentInteractable != null)
         {
-            if (placementPoint!= null)
-            {
-                placementPoint.SpawnTrap();
-            }
          
             buttonCounter = 0;
         }

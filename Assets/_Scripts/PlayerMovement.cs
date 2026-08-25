@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         inputs = new PlayerControls();
         player = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
         playerHeight = player.height;
 
     }

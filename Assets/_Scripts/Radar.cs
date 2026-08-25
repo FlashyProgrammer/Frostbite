@@ -49,7 +49,10 @@ public class Radar : MonoBehaviour
             {
                 foreach (var activeTrap in trapPlacement.GetActiveTraps())
                 {
-                    activeTrap.GetComponent<Image>().enabled = false;
+                    if (activeTrap != null)
+                    {
+                        activeTrap.GetComponent<Image>().enabled = false;
+                    }
                 }
             }
            
@@ -70,7 +73,11 @@ public class Radar : MonoBehaviour
             {
                 foreach (var activeTrap in trapPlacement.GetActiveTraps())
                 {
-                    activeTrap.GetComponent<Image>().enabled = true;
+                    if (activeTrap != null)
+                    {
+                        activeTrap.GetComponent<Image>().enabled = true;
+                    }
+                    
                 }
             }
 

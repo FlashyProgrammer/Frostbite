@@ -31,6 +31,7 @@ public class InventorySlot
     public void Clear()
     {
         item = null;
+        objectPrefab = null;
         if (textAmount != null && itemImage != null)
         {
             textAmount.text = "0";

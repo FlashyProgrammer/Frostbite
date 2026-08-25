@@ -11,7 +11,6 @@ public class CraftingSystem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     private bool canCraft;
-    private int index;
 
     private void Awake()
     {
@@ -35,8 +34,11 @@ public void CheckCraft(ItemRecipes itemRecipes)
         for (int i = 0; i < itemRecipes.recipe.Count; i++)
         {
             var ingredient = itemRecipes.recipe[i];
+
+            // Checks overall amount of qualified ingredients owned
             int amountOwned = 0;
 
+            // Foreach = will run twice
             foreach (var slot in currentInventory)
             {
                 if (slot.item == ingredient.item)
@@ -46,6 +48,7 @@ public void CheckCraft(ItemRecipes itemRecipes)
             }
 
             bool hasEnough = amountOwned >= ingredient.quantity;
+
             if (!hasEnough)
             {
                 canCraft = false;

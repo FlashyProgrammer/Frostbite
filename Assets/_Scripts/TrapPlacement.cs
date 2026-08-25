@@ -23,25 +23,22 @@ public class TrapPlacement : MonoBehaviour
     }
     public void SpawnTrap()
     {
-        if(inventory.GetSlot() != null)
+        var currentSlot = inventory.GetSlot();
+        itemHand = inventory.GetHandVisual();
+
+        if (currentSlot.item != null)
         {
-            var currentSlot = inventory.GetSlot();
-            itemHand = inventory.GetHandVisual();
 
-            if (currentSlot.item != null)
+            if (currentSlot.item.itemName == "Tailsman")
             {
-
-                if (currentSlot.item.itemName == "Tailsman")
-                {
-                    var radarTrap = Instantiate(currentSlot.item.spriteTrapPrefab, radarSpawnPoint.anchoredPosition, Quaternion.identity);
-                    radarTrap.transform.SetParent(radarSpawnPoint, false);
-                    activeTraps.Add(radarTrap);
-                    Instantiate(currentSlot.item.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
-                    currentSlot.Clear();
-                }
+                var radarTrap = Instantiate(currentSlot.item.spriteTrapPrefab, radarSpawnPoint.anchoredPosition, Quaternion.identity);
+                radarTrap.transform.SetParent(radarSpawnPoint, false);
+                activeTraps.Add(radarTrap);
+                Instantiate(currentSlot.item.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
+                currentSlot.Clear();
                 Destroy(itemHand);
             }
-       
+            
         }
 
     }

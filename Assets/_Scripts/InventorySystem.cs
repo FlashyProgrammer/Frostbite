@@ -55,7 +55,11 @@ public class InventorySystem : MonoBehaviour
         {
             InventorySlot freeSlot = FindEmptySlot();
 
-            freeSlot.item = itemToAdd;
+            if(freeSlot != null)
+            {
+                freeSlot.item = itemToAdd;
+            }
+           
        
             if (freeSlot == null)
             {
