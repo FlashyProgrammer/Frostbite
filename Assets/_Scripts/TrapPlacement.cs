@@ -24,7 +24,6 @@ public class TrapPlacement : MonoBehaviour
     public void SpawnTrap()
     {
         var currentSlot = inventory.GetSlot();
-        itemHand = inventory.GetHandVisual();
 
         if (currentSlot.item != null)
         {
@@ -35,8 +34,8 @@ public class TrapPlacement : MonoBehaviour
                 radarTrap.transform.SetParent(radarSpawnPoint, false);
                 activeTraps.Add(radarTrap);
                 Instantiate(currentSlot.item.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
+                Destroy(currentSlot.itemObject);
                 currentSlot.Clear();
-                Destroy(itemHand);
             }
             
         }

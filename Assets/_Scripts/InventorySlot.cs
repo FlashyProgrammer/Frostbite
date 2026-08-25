@@ -10,7 +10,7 @@ public class InventorySlot
     public int quantity;
     public TextMeshProUGUI textAmount;
     public Image itemImage;
-    public GameObject objectPrefab;
+    public GameObject itemObject;
 
     public InventorySlot()
     {
@@ -20,6 +20,7 @@ public class InventorySlot
     public void Drop()
     {
         item = null;
+        itemObject = null;
         if (textAmount!= null && itemImage != null)
         {
             textAmount.text = "0";
@@ -31,7 +32,7 @@ public class InventorySlot
     public void Clear()
     {
         item = null;
-        objectPrefab = null;
+        itemObject = null;
         if (textAmount != null && itemImage != null)
         {
             textAmount.text = "0";

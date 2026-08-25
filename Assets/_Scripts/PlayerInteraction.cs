@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InventorySystem inventory;
     private int buttonCounter = 2;
     private GameObject currentInteractable;
+    private GameObject currentItem;
     private PlayerMovement player;
     private TrapPlacement placementPoint;
 
@@ -72,11 +73,11 @@ public class PlayerInteraction : MonoBehaviour
 
 
             if (currentInteractable.CompareTag("Item") && buttonCounter == 0)
-            {   
+            {
+                currentItem = currentInteractable;
                 var itemData = currentInteractable.GetComponent<ItemTrigger>().ItemProperties();
                 interactText.enabled = false;
-                inventory.AddItem(itemData, itemData.baseQuantity);
-                Destroy(currentInteractable);
+                inventory.AddItem(itemData, itemData.baseQuantity, currentItem);
                 buttonCounter = 2;
             }
 
@@ -109,11 +110,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactText.enabled = false;
         }
-    }
-
-    public GameObject GetInteractable()
-    {
-        return currentInteractable;
     }
 
     public void Interact(InputAction.CallbackContext context)

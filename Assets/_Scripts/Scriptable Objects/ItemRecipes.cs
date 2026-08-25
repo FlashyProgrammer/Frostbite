@@ -14,5 +14,6 @@ public struct Ingredients
 public class ItemRecipes : ScriptableObject
 {
     public List<Ingredients> recipe;
+    public GameObject itemObject;
     public Item output;
 }

@@ -14,6 +14,7 @@ public class CraftingSystem : MonoBehaviour
 
     private void Awake()
     {
+       
         foreach(var icon in ingredientIcon)
         {
             icon.enabled = false;
@@ -28,12 +29,12 @@ public class CraftingSystem : MonoBehaviour
 public void CheckCraft(ItemRecipes itemRecipes)
     {
         canCraft = true;
-
+        
         var currentInventory = playerInventory.GetCurrentInventory();
 
-        for (int i = 0; i < itemRecipes.recipe.Count; i++)
+        for (int index = 0; index < itemRecipes.recipe.Count; index++)
         {
-            var ingredient = itemRecipes.recipe[i];
+            var ingredient = itemRecipes.recipe[index];
 
             // Checks overall amount of qualified ingredients owned
             int amountOwned = 0;
@@ -54,17 +55,17 @@ public void CheckCraft(ItemRecipes itemRecipes)
                 canCraft = false;
             }
 
-            if (i < ingredientIcon.Count)
+            if (index < ingredientIcon.Count)
             {
-                ingredientIcon[i].enabled = true;
-                ingredientIcon[i].sprite = ingredient.item.itemIcon;
-                ingredientIcon[i].color = hasEnough ? Color.white : Color.red;
+                ingredientIcon[index].enabled = true;
+                ingredientIcon[index].sprite = ingredient.item.itemIcon;
+                ingredientIcon[index].color = hasEnough ? Color.white : Color.red;
             }
 
-            if (i < materialsIcon.Count)
+            if (index < materialsIcon.Count)
             {
-                materialsIcon[i].enabled = true;
-                materialsIcon[i].sprite = ingredient.item.itemIcon;
+                materialsIcon[index].enabled = true;
+                materialsIcon[index].sprite = ingredient.item.itemIcon;
             }
         }
 
@@ -114,12 +115,15 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
                 if (slot.quantity <= 0)
                 {
-                    slot.Drop();
+                    Destroy(slot.itemObject);
+                    slot.Clear();
                 }
             }
         }
 
-        playerInventory.AddItem(recipe.output, recipe.output.baseQuantity);
+        var itemObject = Instantiate(recipe.itemObject);
+        playerInventory.AddItem(recipe.output, recipe.output.baseQuantity, itemObject);
+        playerInventory.GrabObject(itemObject);
         CheckCraft(recipe);
     }
 

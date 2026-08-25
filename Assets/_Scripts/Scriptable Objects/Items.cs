@@ -13,7 +13,6 @@ public class Item : ScriptableObject, ISerializationCallbackReceiver
     [Header("Sprites and Prefabs")]
     public GameObject spriteTrapPrefab;
     public GameObject itemPrefab;
-    public GameObject handPrefab;
 
     [Header("Item Type")]
     public bool isTrap;

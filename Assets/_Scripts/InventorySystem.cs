@@ -15,8 +15,6 @@ public class InventorySystem : MonoBehaviour
 
     [SerializeField] private Transform followObject;
     [SerializeField] private Transform groundPoint;
-
-    private GameObject handVisual;
     private int currentIndex = 0;
 
     private void Awake()
@@ -27,9 +25,10 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    public bool AddItem(Item itemToAdd, int amount)
+    public bool AddItem(Item itemToAdd, int amount, GameObject itemObject)
     {
         int remainingAmount = amount;
+
         if (itemToAdd.canStack)
         {
             foreach (var slot in slots)
@@ -42,7 +41,7 @@ public class InventorySystem : MonoBehaviour
                     remainingAmount = slot.AddToStack(remainingAmount);
                     slot.textAmount.text = slot.quantity.ToString();
                     itemToAdd.combinedQuantity = slot.quantity;
-                    SpawnVisual(slot);
+              
 
                     if (remainingAmount <= 0) return true;
                 }
@@ -58,6 +57,15 @@ public class InventorySystem : MonoBehaviour
             if(freeSlot != null)
             {
                 freeSlot.item = itemToAdd;
+                freeSlot.itemObject = itemObject;
+                GrabObject(freeSlot.itemObject);
+
+                if (followObject.childCount > 1)
+                {
+                    freeSlot.itemObject.SetActive(false);
+                }
+
+
             }
            
        
@@ -74,17 +82,17 @@ public class InventorySystem : MonoBehaviour
             {
                 currentBatch = itemToAdd.combinedQuantity;
             }
+
             freeSlot.quantity = currentBatch;
             remainingAmount -= currentBatch;
 
             freeSlot.SetText(numberText[slots.IndexOf(freeSlot)]);
             freeSlot.SetImage(slotImages[slots.IndexOf(freeSlot)]);
 
-            freeSlot.objectPrefab = itemToAdd.handPrefab;
             freeSlot.itemImage.enabled = true;
             freeSlot.itemImage.sprite = itemToAdd.itemIcon;
             freeSlot.textAmount.text = freeSlot.quantity.ToString();
-            SpawnVisual(freeSlot);
+       
 
         }
         return true;
@@ -101,10 +109,10 @@ public class InventorySystem : MonoBehaviour
 
     public void RemoveItem(GameObject item)
     {
-        slots[currentIndex].Drop();
         item.transform.position = groundPoint.position;
         item.transform.parent = null;
-        handVisual = null;
+        slots[currentIndex].Drop();
+     
 
     }
     public InventorySlot GetSlot() 
@@ -112,15 +120,23 @@ public class InventorySystem : MonoBehaviour
         return slots[currentIndex];
   
     }
-    public GameObject GetHandVisual()
+
+    public void GrabObject(GameObject obj)
     {
-        return handVisual;
+        obj.transform.position = followObject.position;
+        obj.transform.parent = followObject;
     }
     public void NextItem(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            if (slots[currentIndex].itemObject != null)
+            {
+                slots[currentIndex].itemObject.SetActive(false);
+            }
+            
             currentIndex++;
+
 
             if (currentIndex == maxInventorySize)
             {
@@ -128,10 +144,9 @@ public class InventorySystem : MonoBehaviour
             }
 
 
-            if (slots[currentIndex] != null)
+            if (slots[currentIndex].itemObject != null)
             {
-                SpawnVisual(slots[currentIndex]);
-
+                slots[currentIndex].itemObject.SetActive(true);
             }
 
             else
@@ -146,6 +161,11 @@ public class InventorySystem : MonoBehaviour
     {
         if (context.performed)
         {
+            if (slots[currentIndex].itemObject != null)
+            {
+                slots[currentIndex].itemObject.SetActive(false);
+            }
+
             currentIndex--;
 
             if (currentIndex < 0)
@@ -154,11 +174,9 @@ public class InventorySystem : MonoBehaviour
             }
 
 
-            if (slots[currentIndex] != null)
+            if (slots[currentIndex].itemObject != null)
             {
-
-                SpawnVisual(slots[currentIndex]);
-
+                slots[currentIndex].itemObject.SetActive(true);
             }
 
             else
@@ -169,28 +187,11 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    public void SpawnVisual(InventorySlot slot)
-    {
-        if (handVisual == null && slot.objectPrefab != null && slot.item != null)
-        {
-            handVisual = Instantiate(slot.objectPrefab, followObject.position, Quaternion.identity);
-            handVisual.transform.SetParent(followObject.transform);
-        }
-
-        if(slot.objectPrefab != null && handVisual != null && slot.item != null) 
-        {
-            Destroy(handVisual);
-            handVisual = Instantiate(slot.objectPrefab, followObject.position, Quaternion.identity);
-            handVisual.transform.SetParent(followObject.transform);
-        }
-        
-    }
-
     public void DropItem(InputAction.CallbackContext context)
     {
         if(context.performed && slots[currentIndex] != null && slots[currentIndex].item != null)
         {
-            RemoveItem(handVisual);
+            RemoveItem(slots[currentIndex].itemObject);
         }
     }
 
