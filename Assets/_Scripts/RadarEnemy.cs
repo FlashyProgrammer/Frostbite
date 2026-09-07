@@ -85,7 +85,7 @@ public class RadarEnemy : MonoBehaviour
         {
             spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     public bool IsOverlapped()

@@ -10,13 +10,12 @@ public class GameMaster : MonoBehaviour
 
     [Header("Game Settings")]
     [SerializeField] private PlayerMovement playerMovement;
+    private int pauseCounter = 0;
 
     private void Awake()
     {
         playerMovement.enabled = true;
     }
-
-    private int pauseCounter = 0;
     public void GameOver()
     {
         gameOverUI.SetActive(true);
@@ -47,20 +46,24 @@ public class GameMaster : MonoBehaviour
             pauseMenuUI.SetActive(true);
             playerMovement.enabled = false;
             Cursor.lockState = CursorLockMode.None;
+            pauseCounter++;
             Time.timeScale = 0f;
         }
 
         if (context.canceled && pauseCounter == 1)
         {
+           
             pauseCounter++;
         }
 
         if(context.performed && pauseCounter == 2)
         {
+          
             pauseMenuUI.SetActive(false);
             playerMovement.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1f;
+            pauseCounter = 0;                                  
         }
        
     }

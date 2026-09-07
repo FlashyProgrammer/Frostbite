@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy Spawn Settings")]
-    [SerializeField] private GameObject enemyOne;
-    [SerializeField] private GameObject enemyTwo;
+    [SerializeField] private ObjectPooling objectPool;
     [SerializeField] private List<RectTransform> spawnPoints;
-    [SerializeField] private float spawnRateEnemyOne;
-    [SerializeField] private float spawnRateEnemyTwo;
+
+    [Range(0f, 100f)]
+    [SerializeField] private float spawnChanceEnemyOne;
     [SerializeField] private int maxToSpawn;
     
     [Header("Movement Ring Points")]
@@ -33,20 +33,33 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-       EnemyOverlapCheck();
+        if (spawnedEnemy != null && spawnedEnemy.GetComponent<RadarEnemy>().IsOverlapped())
+        {
+            EnemyOverlapCheck();
+        }
     }
 
-    public IEnumerator EnemyOneSpawn()
+    public void EnemySpawn()
     {
-        yield return new WaitForSeconds(spawnRateEnemyOne);
-
         if (spawnPoints.Count != 0 && numberSpawned < maxToSpawn)
         {
+            var randomFloat = Random.Range(0f, 1f);
+
             randomIndex = Random.Range(0, spawnPoints.Count);
+
             numberSpawned++;
 
             spawnPoint = spawnPoints[randomIndex];
-            spawnedEnemy = Instantiate(enemyOne, spawnPoint.anchoredPosition, Quaternion.identity);
+
+            if (randomFloat <= spawnChanceEnemyOne/100)
+            {
+                spawnedEnemy = objectPool.GetEnemyOne(new Vector2(0, 0));
+            }
+            else
+            {
+                spawnedEnemy = objectPool.GetEnemyTwo(new Vector2(0, 0));
+            }
+
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.transform.SetParent(spawnPoint, false);
             spawnedEnemy.GetComponent<RadarEnemy>().SetSpawner(this.GetComponent<EnemySpawner>());
@@ -90,7 +103,12 @@ public class EnemySpawner : MonoBehaviour
         {
             while (spawnedEnemy.GetComponent<RadarEnemy>().IsOverlapped())
             {
-                randomIndex = Random.Range(0, spawnPoints.Count);
+                if (randomIndex < spawnPoints.Count - 1)
+                {
+                    Debug.Log("Moved to a different position");
+                    randomIndex++;
+                }
+
                 spawnPoint = spawnPoints[randomIndex];
                 spawnedEnemy.GetComponent<RectTransform>().position = spawnPoint.position;
                 spawnedEnemy.GetComponent<Image>().enabled = false;

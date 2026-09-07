@@ -1,3 +1,5 @@
+using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerDirection;
     private Vector3 playerVelocity;
 
+    [Header("Misc")]
+    [SerializeField] private CinemachineBasicMultiChannelPerlin headbob;
+
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
@@ -21,6 +26,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float crouchHeight = 0.5f;
     [SerializeField] private float playerFriction = 2.0f;
     [SerializeField] private float playerGravity = -9.8f;
+
+    [Header("Headbob Parameters")]
+    [SerializeField] private float walkHeadbobAmount;
+    [SerializeField] private float sprintHeadbobAmount;
+    [SerializeField] private float crouchHeadbobAmount;
+
 
     private void Awake()
     {
@@ -61,24 +72,46 @@ public class PlayerMovement : MonoBehaviour
     {
         playerDirection = transform.forward * inputs.Player.Move.ReadValue<Vector3>().z + transform.right * inputs.Player.Move.ReadValue<Vector3>().x;
 
+
+        headbob.FrequencyGain += playerVelocity.magnitude;
+
+
         // Walking
         if (player.isGrounded && !isSprinting)
         {
             playerVelocity = playerDirection * moveSpeed * Time.deltaTime;
-         
+
+            if (headbob.FrequencyGain > walkHeadbobAmount)
+            {
+                headbob.FrequencyGain = walkHeadbobAmount;
+            }
+
+
         }
         // Sprinting
         if (player.isGrounded && isSprinting)
         {
             playerVelocity = playerDirection * sprintSpeed * Time.deltaTime;
 
+            if (headbob.FrequencyGain > sprintHeadbobAmount)
+            {
+                headbob.FrequencyGain = sprintHeadbobAmount;
+            }
+
         }
         // Crouching
         if(player.isGrounded && isCrouching)
         {
             playerVelocity = playerDirection * crouchSpeed * Time.deltaTime;
+
+            if (headbob.FrequencyGain > crouchHeadbobAmount)
+            {
+                headbob.FrequencyGain = crouchHeadbobAmount;
+            }
+
         }
     }
+
 
     public void CanMove(InputAction.CallbackContext context)
     {
@@ -91,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.canceled)
         {
             isMoving = false;
+            headbob.FrequencyGain = 0f;
 
         }
 

@@ -27,7 +27,6 @@ public class TrapPlacement : MonoBehaviour
 
         if (currentSlot.item != null)
         {
-
             if (currentSlot.item.itemName == "Tailsman")
             {
                 var radarTrap = Instantiate(currentSlot.item.spriteTrapPrefab, radarSpawnPoint.anchoredPosition, Quaternion.identity);
@@ -36,6 +35,7 @@ public class TrapPlacement : MonoBehaviour
                 Instantiate(currentSlot.item.itemPrefab, groundSpawnPoint.position, Quaternion.identity);
                 Destroy(currentSlot.itemObject);
                 currentSlot.Clear();
+
             }
             
         }

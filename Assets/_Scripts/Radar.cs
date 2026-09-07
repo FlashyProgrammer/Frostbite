@@ -29,7 +29,7 @@ public class Radar : MonoBehaviour
         {
             if (spawner != null)
             {
-                StartCoroutine(spawner.EnemyOneSpawn());
+                spawner.EnemySpawn();
                 spawnCounter = spawnTimer;
             }
 
