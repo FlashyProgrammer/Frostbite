@@ -3848,6 +3848,15 @@
 }
 
 {
+    "m_SGVersion": 2,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
+    "m_ObjectId": "6ecd2bbb2cd04774b8e40f5572340ba7",
+    "m_KeepLightingVariants": false,
+    "m_DefaultDecalBlending": true,
+    "m_DefaultSSAO": true
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "71ce1415ce3e42fda17b88c8e18dda8e",
@@ -4180,7 +4189,7 @@
     "m_ObjectId": "811c61639438416f81a20139fe477411",
     "m_Datas": [],
     "m_ActiveSubTarget": {
-        "m_Id": "e6881ff6871d434b92fbbdd4fc68e232"
+        "m_Id": "6ecd2bbb2cd04774b8e40f5572340ba7"
     },
     "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
@@ -5314,7 +5323,7 @@
     "m_PerRendererData": false,
     "m_customAttributes": [],
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"121281c3144240c42acc560e69336db0\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"c84e8b09a60db124ba01cc5850bcb5f5\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -6513,15 +6522,6 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
-}
-
-{
-    "m_SGVersion": 2,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "e6881ff6871d434b92fbbdd4fc68e232",
-    "m_KeepLightingVariants": false,
-    "m_DefaultDecalBlending": true,
-    "m_DefaultSSAO": true
 }
 
 {
