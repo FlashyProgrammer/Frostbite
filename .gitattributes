@@ -61,7 +61,6 @@
 *.spriteatlasv2         unity-yaml
 *.terrainlayer          unity-yaml
 *.unity                 unity-yaml
-*_terrain.asset         binary
 
 # "physic" for 3D but "physics" for 2D
 *.physicMaterial        unity-yaml
@@ -170,3 +169,4 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+*_terrain.asset         binary
