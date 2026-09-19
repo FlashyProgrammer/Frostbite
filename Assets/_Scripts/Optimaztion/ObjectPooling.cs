@@ -8,6 +8,10 @@ public class ObjectPooling : MonoBehaviour
     [SerializeField] private GameObject EnemyTwoPrefab;
 
     [SerializeField] private List<GameObject> enemyPool;
+
+    [Header("Item Stack")]
+    [SerializeField] private GameObject spawnItems;
+    [SerializeField] private List<GameObject> itemStackPool;
    
     public GameObject GetEnemyOne(Vector3 position)
     {
@@ -17,6 +21,11 @@ public class ObjectPooling : MonoBehaviour
     public GameObject GetEnemyTwo(Vector3 position)
     {
         return ObjectSpawnPool(EnemyTwoPrefab, enemyPool, position);
+    }
+
+    public GameObject GetItemStack(Vector3 position)
+    {
+        return ObjectSpawnPool(spawnItems, itemStackPool, position);
     }
 
     public GameObject ObjectSpawnPool(GameObject objectPrefab, List<GameObject> pool, Vector3 position)

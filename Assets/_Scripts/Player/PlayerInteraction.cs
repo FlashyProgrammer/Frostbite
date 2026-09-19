@@ -105,6 +105,13 @@ public class PlayerInteraction : MonoBehaviour
                 player.enabled = true;
                 Cursor.lockState = CursorLockMode.Locked;
             }
+
+            if(currentInteractable.CompareTag("Item Spawner") && buttonCounter == 0)
+            {
+                interactText.enabled = true;
+                currentInteractable.GetComponent<ItemSpawner>().SpawnItem();
+                buttonCounter = 2;
+            }
         }
 
         else

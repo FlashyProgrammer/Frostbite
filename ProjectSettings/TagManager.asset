@@ -12,6 +12,7 @@ TagManager:
   - Tailsman
   - Crafting Table
   - Generator
+  - Item Spawner
   layers:
   - Default
   - TransparentFX
