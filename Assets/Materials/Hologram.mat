@@ -74,7 +74,7 @@ Material:
     - _DstBlendAlpha: 10
     - _FlickerSpeed: 2
     - _Flickers: 0
-    - _FresnelPow: 3
+    - _FresnelPow: 2.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -87,7 +87,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _FresnelColour: {r: 1.3050909, g: 5.9758406, b: 7.0943394, a: 1}
+    - _FresnelColour: {r: 2.6101818, g: 11.951681, b: 14.188679, a: 1}
     - _LineColour: {r: 0.31510323, g: 0.6886792, b: 0.6093921, a: 1}
     - _LineSpeed: {r: 0, g: 2, b: 0, a: 0}
     - _LineTiling: {r: 0, g: 30, b: 0, a: 0}
