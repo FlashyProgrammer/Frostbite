@@ -1,13 +1,19 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private Transform spawnPosition;
-    [SerializeField] private ObjectPooling pool;
     [SerializeField] private float itemSpawnTime;
 
+    [SerializeField] private Item[] itemsToSpawn;
+
+    [SerializeField] private InventorySystem inventorySystem;
+
     [SerializeField] private Light itemLight;
+
+    private GameObject itemSpawned;
     private bool canSpawn;
     private float timeCounter;
 
@@ -32,7 +38,12 @@ public class ItemSpawner : MonoBehaviour
     {
         if (canSpawn)
         {
-            var items = pool.GetItemStack(spawnPosition.position);
+            foreach (var item in itemsToSpawn)
+            {
+                var currentItem = Instantiate(item.itemObject,spawnPosition.position, quaternion.identity);
+                inventorySystem.AddItem(item,item.baseQuantity, currentItem);
+
+            }
             itemLight.color = Color.red;
             canSpawn = false;
         }

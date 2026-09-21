@@ -7,6 +7,7 @@ public class GameMaster : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject winScreenUI;
 
     [Header("Game Settings")]
     [SerializeField] private PlayerMovement playerMovement;
@@ -24,7 +25,15 @@ public class GameMaster : MonoBehaviour
         Time.timeScale = 0f;
 
     }
+    public void DayOver()
+    {
+        winScreenUI.SetActive(true);
+        playerMovement.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
 
+
+    }
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

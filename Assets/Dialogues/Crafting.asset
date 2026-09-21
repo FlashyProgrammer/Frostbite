@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
+  m_Name: Crafting
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  charVoiceLines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  charLines:
+  - charName: '404 '
+    line: "There\u2019s stuff on this table.  "
+    lineStayTime: 5
+  - charName: ???
+    line: 'You can use the tools on the table if you want.  '
+    lineStayTime: 5
+  - charName: 404
+    line: 'What do I do with them? '
+    lineStayTime: 5
+  - charName: ???
+    line: You can make things, try it
+    lineStayTime: 5

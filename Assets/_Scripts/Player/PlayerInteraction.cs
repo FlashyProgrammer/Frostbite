@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
+
     [SerializeField] private Camera playerCam;
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private LayerMask interactionLayers;
@@ -13,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform dropPoint;
 
     [SerializeField] private TextMeshProUGUI interactText;
+    [SerializeField] private GameObject interactPrompt;
     [SerializeField] private GameObject craftingWindow;
 
     [Header("Inventory Management")]
@@ -22,6 +24,10 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject currentItem;
     private PlayerMovement player;
     private TrapPlacement placementPoint;
+
+    [Header("Dialogue Interactions")]
+    [SerializeField] private GameObject radarInteractions;
+    [SerializeField] private GameObject craftingInteractions;
 
     private void Awake()
     {
@@ -54,13 +60,14 @@ public class PlayerInteraction : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            interactText.enabled = true;
             interactText.text = currentInteractable.name;
+            interactPrompt.SetActive(true);
 
             if (currentInteractable.CompareTag("Radar") && buttonCounter == 0) 
             {
                 currentInteractable.GetComponent<Radar>().showRadar();
-                interactText.enabled = false;
+                if (radarInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
+                interactPrompt.SetActive(false);
                 mouseLook.enabled = false;
                 player.enabled = false;
             }
@@ -77,7 +84,7 @@ public class PlayerInteraction : MonoBehaviour
                 currentItem = currentInteractable;
                 var worldData = currentInteractable.GetComponent<ItemTrigger>();
                 var amount = worldData != null ? worldData.quantity : 1;
-                interactText.enabled = false;
+                interactPrompt.SetActive(false);
                 inventory.AddItem(worldData.ItemProperties(), amount, currentItem);
                 buttonCounter = 2;
             }
@@ -85,14 +92,15 @@ public class PlayerInteraction : MonoBehaviour
             if (currentInteractable.CompareTag("Placement Point") && buttonCounter == 0)
             {
 
-                interactText.enabled = false;
+                interactPrompt.SetActive(false);
                 placementPoint = currentInteractable.GetComponent<TrapPlacement>();
                 placementPoint.ActivateTrap();
                 buttonCounter = 2;
             }
             if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 0)
             {
-                interactText.enabled = false;
+                if (craftingInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
+                interactPrompt.SetActive(false);
                 craftingWindow.SetActive(true);
                 mouseLook.enabled = false;
                 player.enabled = false;
@@ -108,7 +116,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if(currentInteractable.CompareTag("Item Spawner") && buttonCounter == 0)
             {
-                interactText.enabled = true;
+                interactPrompt.SetActive(true);
                 currentInteractable.GetComponent<ItemSpawner>().SpawnItem();
                 buttonCounter = 2;
             }
@@ -116,7 +124,7 @@ public class PlayerInteraction : MonoBehaviour
 
         else
         {
-            interactText.enabled = false;
+            interactPrompt.SetActive(false);
         }
     }
 
@@ -124,7 +132,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (context.performed && buttonCounter == 0 && currentInteractable != null)
         {
-   
             buttonCounter++;
         }
 
@@ -135,7 +142,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (context.performed && buttonCounter == 2 && currentInteractable != null)
         {
-         
+            if (currentInteractable.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
             buttonCounter = 0;
         }
 

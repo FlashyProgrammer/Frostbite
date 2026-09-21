@@ -53,11 +53,11 @@ public class EnemySpawner : MonoBehaviour
 
             if (randomFloat <= spawnChanceEnemyOne/100)
             {
-                spawnedEnemy = objectPool.GetEnemyOne(new Vector2(0, 0));
+                spawnedEnemy = objectPool.GetEnemyOne(spawnPoint.position);
             }
             else
             {
-                spawnedEnemy = objectPool.GetEnemyTwo(new Vector2(0, 0));
+                spawnedEnemy = objectPool.GetEnemyTwo(spawnPoint.position);
             }
 
             activeEnemies.Add(spawnedEnemy);
@@ -105,11 +105,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (randomIndex < spawnPoints.Count - 1)
                 {
-                    Debug.Log("Moved to a different position");
                     randomIndex++;
+                    spawnPoint = spawnPoints[randomIndex];
                 }
 
-                spawnPoint = spawnPoints[randomIndex];
                 spawnedEnemy.GetComponent<RectTransform>().position = spawnPoint.position;
                 spawnedEnemy.GetComponent<Image>().enabled = false;
                 spawnedEnemy.transform.SetParent(spawnPoint);

@@ -123,7 +123,6 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
         var itemObject = Instantiate(recipe.itemObject);
         playerInventory.AddItem(recipe.output, recipe.output.baseQuantity, itemObject);
-        playerInventory.GrabObject(itemObject);
         CheckCraft(recipe);
     }
 

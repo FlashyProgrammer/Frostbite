@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Gunpowder
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: 7320a1b8ee874534cae67e60600e55ad, type: 3}
+  itemObject: {fileID: 6174646263663466836, guid: daf2b95be227b024a89e8aefeca3ed1a, type: 3}
   canStack: 1
   baseQuantity: 1
   stackLimit: 5

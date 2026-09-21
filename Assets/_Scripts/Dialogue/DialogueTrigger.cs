@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private Character[] characterList;
-    private int characterCount;
-
+    [SerializeField] private Dialogue[] dialogue;
+    private int dialogueCount;
+    
     private void Start()
+    {
+        TriggerDialogue();
+    }
+
+    private void OnEnable()
     {
         TriggerDialogue();
     }
@@ -14,22 +19,27 @@ public class DialogueTrigger : MonoBehaviour
     {
         this.gameObject.GetComponent<DialogueTrigger>().enabled = true;
     }
-    public void TriggerDialogue()
+    public void DisableTrigger()
     {
-            FindAnyObjectByType<DialogueManager>().BeginDialogue(characterList[characterCount]);
+        this.gameObject.GetComponent<DialogueTrigger>().enabled = false;
     }
 
-    public void nextCharacter()
+    public void TriggerDialogue()
     {
-        characterCount++;
+            FindAnyObjectByType<DialogueManager>().BeginDialogue(dialogue[dialogueCount]);
+    }
 
-        if (characterCount < characterList.Length)
+    public void nextDialogue()
+    {
+        dialogueCount++;
+
+        if (dialogueCount < dialogue.Length)
         {
-            FindAnyObjectByType<DialogueManager>().BeginDialogue(characterList[characterCount]);
+            FindAnyObjectByType<DialogueManager>().BeginDialogue(dialogue[dialogueCount]);
         }
         else 
         {
-            characterCount = 0;
+            dialogueCount = 0;
         }
 
     }

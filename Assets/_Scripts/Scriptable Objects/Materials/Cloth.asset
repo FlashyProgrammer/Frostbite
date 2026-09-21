@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Cloth
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: 3053b14b6b89b2d41ad13bb9360521e1, type: 3}
+  itemObject: {fileID: 6174646263663466836, guid: 4fef54be38282fb49b5dbf6a0c259520, type: 3}
   canStack: 1
   baseQuantity: 1
   stackLimit: 5

@@ -11,6 +11,10 @@ public class DayTimer : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI timeText;
 
+    [Header("Game Master")]
+    [SerializeField] private GameMaster gameMaster;
+
+
     private void Awake()
     {
         timeIsRunning = true;
@@ -49,7 +53,7 @@ public class DayTimer : MonoBehaviour
 
     void OnTimerEnd()
     {
-        Debug.Log("End of Day 1");
+        gameMaster.DayOver();
     }
 }
 
