@@ -20,8 +20,12 @@ public class ItemTrigger : MonoBehaviour, IInteractable
     }
 
     public string InteractPrompt => item.name;
+    public bool ShowsUI()
+    {
+        return false;
+    }
 
-    public bool Interact(Transform interactor)
+    public bool Interact()
     {
         inventory.AddItem(item, quantity, this.gameObject);
         return true;

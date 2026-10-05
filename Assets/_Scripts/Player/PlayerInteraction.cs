@@ -19,27 +19,23 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("Inventory Management")]
     [SerializeField] private InventorySystem inventory;
-    private int buttonCounter = 0;
     private GameObject currentInteractable;
-    private GameObject currentItem;
-    private PlayerMovement player;
-    private TrapPlacement placementPoint;
 
     [Header("Dialogue Interactions")]
     [SerializeField] private GameObject radarInteractions;
     [SerializeField] private GameObject craftingInteractions;
 
-    private bool buttonPressed = false; 
+    private PlayerMovement player;
+    private bool isUIShown;
+    private int buttonCounter;
 
     private void Awake()
     {
         player = GetComponent<PlayerMovement>();
     }
-
     void Update()
     {
-        Debug.Log("Button Counter: " + buttonCounter);
-        ObjectInteractions();
+       
         RayCasting();
     }
 
@@ -57,92 +53,40 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInteractable = null;
         }
+
         Debug.DrawRay(camRay.origin, camRay.direction * rayDistance, Color.yellow);
-    }
 
-    private void ObjectInteractions()
-    {
-
-        if (currentInteractable != null)
+        if (currentInteractable != null && player.enabled)
         {
-            if (currentInteractable.TryGetComponent<IInteractable>(out IInteractable interactable))
-            {
-                if (buttonCounter == 0)
-                {
-                    interactPrompt.SetActive(true);
-                }
-
-                interactText.text =  interactable.InteractPrompt;
-
-                if (buttonPressed)
-                {
-                    interactable.Interact(currentInteractable.transform);
-                    if (radarInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
-                    buttonPressed = false;
-                    interactPrompt.SetActive(false);
-                }
-               
-            }
-
-            if (currentInteractable.CompareTag("Placement Point") && buttonCounter == 0)
-            {
-
-                interactPrompt.SetActive(false);
-                placementPoint = currentInteractable.GetComponent<TrapPlacement>();
-                placementPoint.ActivateTrap();
-                buttonCounter = 2;
-            }
-            if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 0)
-            {
-                if (craftingInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
-                interactPrompt.SetActive(false);
-                craftingWindow.SetActive(true);
-                mouseLook.enabled = false;
-                player.enabled = false;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            if (currentInteractable.CompareTag("Crafting Table") && buttonCounter == 2)
-            {
-                craftingWindow.SetActive(false);
-                mouseLook.enabled = true;
-                player.enabled = true;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-
-            if(currentInteractable.CompareTag("Item Spawner") && buttonCounter == 0)
-            {
-                interactPrompt.SetActive(true);
-                currentInteractable.GetComponent<ItemSpawner>().SpawnItem();
-                buttonCounter = 2;
-            }
+            interactPrompt.SetActive(true);
+            interactText.text = currentInteractable.name;
         }
-
         else
         {
             interactPrompt.SetActive(false);
         }
+
+    }
+
+    private void ObjectInteractions()
+    {
+        if (currentInteractable.TryGetComponent<IInteractable>(out IInteractable interactable))
+        {
+            interactText.text = interactable.InteractPrompt;
+            interactable.Interact();
+        }
+       
     }
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (context.performed && !buttonPressed && currentInteractable != null)
+        if (context.performed && currentInteractable != null)
         {
-            buttonPressed = true;
-            buttonCounter++;
+            ObjectInteractions();
+
         }
 
-        if(context.canceled && buttonCounter == 1 && currentInteractable != null)
-        {
-            buttonCounter++;
-        }
-
-        if (context.performed && buttonCounter >= 2 && currentInteractable != null)
-        {
-            if (currentInteractable.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
-            buttonPressed = false;
-            buttonCounter = 0;
-        }
-
+       
 
     }
 

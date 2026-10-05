@@ -93,9 +93,20 @@ public class Radar : MonoBehaviour, IInteractable
             }
 
         }
+
+        if (radarOnScreen)
+        {
+            player.enabled = false;
+        }
+
     }
     public string InteractPrompt => gameObject.name;
-    public bool Interact(Transform interactor)
+    public bool ShowsUI()
+    {
+        return true;
+    }
+
+    public bool Interact()
     {
         if (!radarOnScreen)
         {
