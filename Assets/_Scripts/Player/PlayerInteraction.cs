@@ -19,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("Inventory Management")]
     [SerializeField] private InventorySystem inventory;
-    private int buttonCounter = 2;
+    private int buttonCounter = 0;
     private GameObject currentInteractable;
     private GameObject currentItem;
     private PlayerMovement player;
@@ -29,6 +29,8 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private GameObject radarInteractions;
     [SerializeField] private GameObject craftingInteractions;
 
+    private bool buttonPressed = false; 
+
     private void Awake()
     {
         player = GetComponent<PlayerMovement>();
@@ -36,6 +38,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Button Counter: " + buttonCounter);
         ObjectInteractions();
         RayCasting();
     }
@@ -44,10 +47,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         Ray camRay = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
+
         if (Physics.Raycast(camRay, out hit, rayDistance, interactionLayers))
         {
             currentInteractable = hit.collider.gameObject;
         }
+
         else
         {
             currentInteractable = null;
@@ -60,33 +65,23 @@ public class PlayerInteraction : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            interactText.text = currentInteractable.name;
-            interactPrompt.SetActive(true);
-
-            if (currentInteractable.CompareTag("Radar") && buttonCounter == 0) 
+            if (currentInteractable.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
-                currentInteractable.GetComponent<Radar>().showRadar();
-                if (radarInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
-                interactPrompt.SetActive(false);
-                mouseLook.enabled = false;
-                player.enabled = false;
-            }
-            if (currentInteractable.CompareTag("Radar") && buttonCounter == 2)
-            {
-                currentInteractable.GetComponent<Radar>().hideRadar();
-                mouseLook.enabled = true;
-                player.enabled = true; 
-            }
+                if (buttonCounter == 0)
+                {
+                    interactPrompt.SetActive(true);
+                }
 
+                interactText.text =  interactable.InteractPrompt;
 
-            if (currentInteractable.CompareTag("Item") && buttonCounter == 0)
-            {
-                currentItem = currentInteractable;
-                var worldData = currentInteractable.GetComponent<ItemTrigger>();
-                var amount = worldData != null ? worldData.quantity : 1;
-                interactPrompt.SetActive(false);
-                inventory.AddItem(worldData.ItemProperties(), amount, currentItem);
-                buttonCounter = 2;
+                if (buttonPressed)
+                {
+                    interactable.Interact(currentInteractable.transform);
+                    if (radarInteractions.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
+                    buttonPressed = false;
+                    interactPrompt.SetActive(false);
+                }
+               
             }
 
             if (currentInteractable.CompareTag("Placement Point") && buttonCounter == 0)
@@ -130,8 +125,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (context.performed && buttonCounter == 0 && currentInteractable != null)
+        if (context.performed && !buttonPressed && currentInteractable != null)
         {
+            buttonPressed = true;
             buttonCounter++;
         }
 
@@ -140,9 +136,10 @@ public class PlayerInteraction : MonoBehaviour
             buttonCounter++;
         }
 
-        if (context.performed && buttonCounter == 2 && currentInteractable != null)
+        if (context.performed && buttonCounter >= 2 && currentInteractable != null)
         {
             if (currentInteractable.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger)) trigger.EnableTrigger();
+            buttonPressed = false;
             buttonCounter = 0;
         }
 

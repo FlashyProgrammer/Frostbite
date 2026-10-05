@@ -1643,7 +1643,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.6765753, g: 0.7889411, b: 0.7924528, a: 1}
-  m_Intensity: 0.08
+  m_Intensity: 0.04
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1705,13 +1705,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113965787}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: -0.36574638, y: -0.23954749, z: -0.098001435, w: 0.8940035}
   m_LocalPosition: {x: 23.20456, y: 3.59097, z: -39.35449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: -44.5, y: -30, z: 0}
 --- !u!1 &114930183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,6 +1870,8 @@ MonoBehaviour:
   spawner: {fileID: 83473603}
   spawnTimer: 15
   trapPlacement: {fileID: 338282194}
+  mouseLook: {fileID: 2129060065}
+  player: {fileID: 242142125}
 --- !u!1 &165280858
 GameObject:
   m_ObjectHideFlags: 0
@@ -9763,6 +9765,8 @@ MonoBehaviour:
   spawner: {fileID: 1854488427}
   spawnTimer: 15
   trapPlacement: {fileID: 1378367289}
+  mouseLook: {fileID: 2129060065}
+  player: {fileID: 242142125}
 --- !u!1 &1040974378
 GameObject:
   m_ObjectHideFlags: 0
@@ -10136,9 +10140,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1129827441333337445, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2063374636519700660, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765589837745538228, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3342165541310919643, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
       propertyPath: m_Name
       value: Spawn Batch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890617777445752727, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032594648432178584, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5442649269539641693, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10179,6 +10203,34 @@ PrefabInstance:
     - target: {fileID: 5442649269539641693, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089770970186456424, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175577146894538062, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012650580360849602, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322243842344014171, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326976700833411180, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393108960243519633, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9099316995166656173, guid: e20d8a14e202fc64a827543326b337d4, type: 3}
+      propertyPath: inventory
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17471,6 +17523,8 @@ MonoBehaviour:
   spawner: {fileID: 1081174728}
   spawnTimer: 15
   trapPlacement: {fileID: 1629361200}
+  mouseLook: {fileID: 2129060065}
+  player: {fileID: 242142125}
 --- !u!1 &1891961125
 GameObject:
   m_ObjectHideFlags: 0
@@ -18225,6 +18279,8 @@ MonoBehaviour:
   spawner: {fileID: 1863455930}
   spawnTimer: 15
   trapPlacement: {fileID: 860625344}
+  mouseLook: {fileID: 2129060065}
+  player: {fileID: 242142125}
 --- !u!1 &1977708694
 GameObject:
   m_ObjectHideFlags: 0

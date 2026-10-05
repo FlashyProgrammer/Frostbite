@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrapPlacement : MonoBehaviour
+public class TrapPlacement : MonoBehaviour, IInteractable
 {
 
     [Header("Tailsman")]
@@ -30,6 +30,14 @@ public class TrapPlacement : MonoBehaviour
             placedTailsman.SetActive(false);
         }
     }
+    public string InteractPrompt => gameObject.name;
+
+    public bool Interact(Transform interactor)
+    {
+        ActivateTrap();
+        return true;
+    }
+
     public void ActivateTrap()
     {
         if (!placedTailsman.activeInHierarchy)
