@@ -6,12 +6,10 @@ public class RadarEnemy : MonoBehaviour
     [Header("Enemy Movement Settings")]
     [SerializeField] private float timerCheck;
     [Range(1, 100)]
-    [SerializeField] private float enemyMoveChance;
+    [SerializeField] private float moveBackChance;
 
     [Header("Movement Ring Points")]
     public List<RectTransform> movePath;
-
-
     private EnemySpawner spawner;
     private bool enemyOverlap;
     private int currentPoint;
@@ -38,26 +36,23 @@ public class RadarEnemy : MonoBehaviour
         {
             randomFloat = Random.Range(0, 1f);
 
-            if (randomFloat <= enemyMoveChance/100)
-            {
-
-                if (currentPoint < movePath.Count)
-                {
-                    currentPoint++;
-                    rectTransform.position = movePath[currentPoint].position;
-                    rectTransform.SetParent(movePath[currentPoint]);
-                }
-                else 
-                {
-                    currentPoint--;
-                }
-            }
-            else
+            if (randomFloat <= moveBackChance/100)
             {
 
                 if (currentPoint > 0)
                 {
                     currentPoint--;
+                    rectTransform.position = movePath[currentPoint].position;
+                    rectTransform.SetParent(movePath[currentPoint]);
+                }
+            }
+
+            else
+            {
+                
+                if (currentPoint < movePath.Count)
+                {
+                    currentPoint++;
                     rectTransform.position = movePath[currentPoint].position;
                     rectTransform.SetParent(movePath[currentPoint]);
                 }
@@ -85,6 +80,7 @@ public class RadarEnemy : MonoBehaviour
         {
             spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
             collision.gameObject.SetActive(false);
+            currentPoint = 0;
             gameObject.SetActive(false);
         }
     }

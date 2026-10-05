@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public string itemName;
     public string itemDescription;
     public Sprite itemIcon;
+    public GameObject itemObject;
 
     [Header("Stacking Parameters")]
     public bool canStack;

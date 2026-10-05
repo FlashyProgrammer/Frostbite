@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal.Execution;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private PlayerInteraction playerInteraction;
 
     [SerializeField] private List<Image> slotImages;
+    [SerializeField] private List<Image> activeSlotImages;
     [SerializeField] private List<TextMeshProUGUI> numberText;
     [SerializeField] private int maxInventorySize = 5;
 
@@ -75,6 +75,7 @@ public class InventorySystem : MonoBehaviour
             if (freeSlot == null)
             {
                 Debug.LogWarning("Inventory Full! Could not fit remaining: " + remainingAmount);
+                itemObject.SetActive(true);
                 return false; 
             }
           
@@ -120,6 +121,8 @@ public class InventorySystem : MonoBehaviour
         }
 
         item.transform.position = groundPoint.position;
+        item.transform.rotation = groundPoint.rotation;
+        item.SetActive(true);
         item.transform.parent = null;
         slots[currentIndex].Drop();
      
@@ -127,6 +130,7 @@ public class InventorySystem : MonoBehaviour
     }
     public InventorySlot GetSlot() 
     {
+        activeSlotImages[currentIndex].gameObject.SetActive(false);
         return slots[currentIndex];
   
     }
@@ -210,6 +214,7 @@ public class InventorySystem : MonoBehaviour
                 if (slots[currentIndex].itemObject != null)
                 {
                     slots[currentIndex].itemObject.SetActive(false);
+                    activeSlotImages[currentIndex].gameObject.SetActive(false);
                 }
 
                 currentIndex--;
@@ -223,6 +228,7 @@ public class InventorySystem : MonoBehaviour
                 if (slots[currentIndex].itemObject != null)
                 {
                     slots[currentIndex].itemObject.SetActive(true);
+                    activeSlotImages[currentIndex].gameObject.SetActive(true);
                 }
             }
 
@@ -231,6 +237,7 @@ public class InventorySystem : MonoBehaviour
                 if (slots[currentIndex].itemObject != null)
                 {
                     slots[currentIndex].itemObject.SetActive(false);
+                    activeSlotImages[currentIndex].gameObject.SetActive(false);
                 }
 
                 currentIndex++;
@@ -245,6 +252,7 @@ public class InventorySystem : MonoBehaviour
                 if (slots[currentIndex].itemObject != null)
                 {
                     slots[currentIndex].itemObject.SetActive(true);
+                    activeSlotImages[currentIndex].gameObject.SetActive(true);
                 }
 
             }

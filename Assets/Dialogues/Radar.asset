@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
+  m_Name: Radar
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  charVoiceLines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  charLines:
+  - charName: '404 '
+    line: "What\u2019s this? "
+    lineStayTime: 5
+  - charName: ??
+    line: "That\u2019s a radar. It\u2019ll tell you if there\u2019s anything dangerous
+      nearby. "
+    lineStayTime: 5
+  - charName: 404
+    line: 'How?  '
+    lineStayTime: 5
+  - charName: ???
+    line: "So, if you look at the screen, that big dot in the middle is where you\u2019re
+      standing, okay? "
+    lineStayTime: 5
+  - charName: 404
+    line: " Okay\u2026"
+    lineStayTime: 5
+  - charName: ???
+    line: "If you see other dots on the screen, those dots mean there\u2019s something
+      \r\ndangerous nearby.  "
+    lineStayTime: 5
+  - charName: 404
+    line: 'What do I do if I see a bad dot?  '
+    lineStayTime: 5
+  - charName: ???
+    line: "Sometimes the, uh, bad dot will go away on its own, but if it doesn\u2019t,
+      you can put a trap by the door right by the radar.  "
+    lineStayTime: 5
+  - charName: 404
+    line: ' How many radars are there?'
+    lineStayTime: 5
+  - charName: 404
+    line: "There are four, one for each door. The radar you\u2019re looking at only
+      shows you the bad dots near that door. "
+    lineStayTime: 5
+  - charName: ???
+    line: "Remember to keep checking the radar, it\u2019ll show you when the bad
+      dots move. "
+    lineStayTime: 5

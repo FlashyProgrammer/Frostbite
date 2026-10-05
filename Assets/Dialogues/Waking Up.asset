@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
+  m_Name: Waking Up
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  charVoiceLines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  charLines:
+  - charName: 404
+    line: 'Huh? '
+    lineStayTime: 3
+  - charName: 404
+    line: "It\u2019s cold in here\u2026 "
+    lineStayTime: 8
+  - charName: 404
+    line: 'Hello? '
+    lineStayTime: 3
+  - charName: 
+    line: '[Intercom Static]'
+    lineStayTime: 3
+  - charName: ???
+    line: 'Hello, 404.  '
+    lineStayTime: 3
+  - charName: 404
+    line: 'How do you know my name? '
+    lineStayTime: 3
+  - charName: ???
+    line: "We have a list of missing children. \n"
+    lineStayTime: 3
+  - charName: 404
+    line: Oh...
+    lineStayTime: 3
+  - charName: 404
+    line: Where am I?
+    lineStayTime: 3
+  - charName: ???
+    line: 'You seem to be in an old facility. Help is on its way. '
+    lineStayTime: 3
+  - charName: 404
+    line: Oh, okay!
+    lineStayTime: 3
+  - charName: 404
+    line: Thank you...
+    lineStayTime: 3
+  - charName: ???
+    line: "You can look around in the meantime. Just don\u2019t go outside.  "
+    lineStayTime: 3
+  - charName: ???
+    line: "There\u2019s a very bad snowstorm. We won\u2019t be able to find you if
+      you leave. "
+    lineStayTime: 3
+  - charName: 404
+    line: "Oh, that\u2019s why it\u2019s so cold."
+    lineStayTime: 3

@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 public class Radar : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private Image[] radarToShow;
+    [SerializeField] private GameObject miniInventory;
+    [SerializeField] private GameObject dialogueTextOne;
+    [SerializeField] private GameObject dialogueTextTwo;
+
+    [Header("Spawn/Trap Handling")]
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private float spawnTimer;
     [SerializeField] private TrapPlacement trapPlacement;
-
 
     private float spawnCounter;
     private bool radarOnScreen;
@@ -56,6 +61,7 @@ public class Radar : MonoBehaviour
                 }
             }
            
+
         }
 
 
@@ -93,6 +99,9 @@ public class Radar : MonoBehaviour
             }
             
             radarOnScreen = true;
+            miniInventory.SetActive(false);
+            dialogueTextOne.SetActive(false);
+            dialogueTextTwo.SetActive(true);
 
         }
     }
@@ -105,7 +114,9 @@ public class Radar : MonoBehaviour
             {
                 image.enabled = false;
             }
-          
+            miniInventory.SetActive(true);
+            dialogueTextOne.SetActive(true);
+            dialogueTextTwo.SetActive(false);
             radarOnScreen = false;
         }
     }
