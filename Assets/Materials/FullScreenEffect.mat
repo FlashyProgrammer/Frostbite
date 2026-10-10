@@ -57,7 +57,7 @@ Material:
     - _VignetteIntensity: 0.3
     - _VignettePow: 0
     m_Colors:
-    - _Colour: {r: 0.52331793, g: 0.754717, b: 0.7285913, a: 1}
+    - _Colour: {r: 0.46540874, g: 0.46540874, b: 0.46540874, a: 1}
     - _LineSpeed: {r: 1, g: 2.6, b: 0, a: 0}
     - _Tiling: {r: 1, g: 30, b: 0, a: 0}
   m_BuildTextureStacks: []

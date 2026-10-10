@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
 
+    [Header("Misc")]
     [SerializeField] private Camera playerCam;
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private LayerMask interactionLayers;
@@ -13,6 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform followPoint;
     [SerializeField] private Transform dropPoint;
 
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI interactText;
     [SerializeField] private GameObject interactPrompt;
     [SerializeField] private GameObject craftingWindow;
@@ -26,8 +28,6 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private GameObject craftingInteractions;
 
     private PlayerMovement player;
-    private bool isUIShown;
-    private int buttonCounter;
 
     private void Awake()
     {
