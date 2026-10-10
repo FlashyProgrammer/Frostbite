@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FullScreenEffect
-  m_Shader: {fileID: -6465566751694194690, guid: e2aece74c081d48429f7bbfe4b1c9351, type: 3}
+  m_Name: UI
+  m_Shader: {fileID: -6465566751694194690, guid: 01ff25ddab732694198422368010dc97, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,7 +27,11 @@ Material:
         m_Texture: {fileID: 2800000, guid: 121281c3144240c42acc560e69336db0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_4c64b8b15bdb4d29abab6b42620e07a4_Out_0_Texture2D:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: a2bed2ed802d72d42a50ef98fad4b626, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_72193f3346c24a49a9f12a4065c145f3_Out_0_Texture2D:
         m_Texture: {fileID: 2800000, guid: c84e8b09a60db124ba01cc5850bcb5f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -45,20 +49,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0.5
+    - _AlphaPow: 250
     - _BreatheSpeed: 10
-    - _Fullscreen_AlphaBlendOperation: 0
-    - _Fullscreen_BlendMode: 1
-    - _Fullscreen_ColorBlendOperation: 0
-    - _Fullscreen_DepthWrite: 0
-    - _Fullscreen_DstAlphaBlend: 10
-    - _Fullscreen_DstColorBlend: 10
-    - _Fullscreen_SrcAlphaBlend: 1
-    - _Fullscreen_SrcColorBlend: 5
-    - _VignetteIntensity: 0.3
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UIMaskSoftnessX: 1
+    - _UIMaskSoftnessY: 1
+    - _VignetteIntensity: 4
     - _VignettePow: 0
     m_Colors:
-    - _Colour: {r: 0.46540874, g: 0.46540874, b: 0.46540874, a: 1}
-    - _LineSpeed: {r: 1, g: 2.6, b: 0, a: 0}
-    - _Tiling: {r: 1, g: 30, b: 0, a: 0}
+    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _Colour: {r: 1, g: 1, b: 1, a: 1}
+    - _LineSpeed: {r: 0, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 200, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

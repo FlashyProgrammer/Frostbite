@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Radar : MonoBehaviour
+public class Radar : MonoBehaviour, IInteractable
 {
     [Header("UI")]
     [SerializeField] private Image[] radarToShow;
@@ -14,6 +14,11 @@ public class Radar : MonoBehaviour
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private float spawnTimer;
     [SerializeField] private TrapPlacement trapPlacement;
+
+    [Header("Player Misc")]
+    [SerializeField] private CameraMove mouseLook;
+    [SerializeField] private PlayerMovement player;
+
 
     private float spawnCounter;
     private bool radarOnScreen;
@@ -88,7 +93,33 @@ public class Radar : MonoBehaviour
             }
 
         }
+
+        if (radarOnScreen)
+        {
+            player.enabled = false;
+        }
+
     }
+    public string InteractPrompt => gameObject.name;
+    public bool ShowsUI()
+    {
+        return true;
+    }
+
+    public bool Interact()
+    {
+        if (!radarOnScreen)
+        {
+            showRadar();
+        }
+        else
+        {
+            hideRadar();
+        }
+
+        return true;
+    }
+
     public void showRadar() 
     {
         if (!radarOnScreen)
@@ -102,6 +133,8 @@ public class Radar : MonoBehaviour
             miniInventory.SetActive(false);
             dialogueTextOne.SetActive(false);
             dialogueTextTwo.SetActive(true);
+            player.enabled = false;
+            mouseLook.enabled = false;
 
         }
     }
@@ -118,6 +151,8 @@ public class Radar : MonoBehaviour
             dialogueTextOne.SetActive(true);
             dialogueTextTwo.SetActive(false);
             radarOnScreen = false;
+            player.enabled = true;
+            mouseLook.enabled = true;
         }
     }
 }
