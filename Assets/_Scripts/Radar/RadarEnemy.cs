@@ -39,7 +39,7 @@ public class RadarEnemy : MonoBehaviour
         {
             randomFloat = Random.Range(0, 1f);
 
-            if (randomFloat <= moveBackChance/100 && !IsOverlapped())
+            if (randomFloat <= moveBackChance/100)
             {
 
                 if (currentPoint > 0)
@@ -58,7 +58,7 @@ public class RadarEnemy : MonoBehaviour
                 }
             }
 
-            if (randomFloat >= moveBackChance / 100 && !IsOverlapped())
+            if (randomFloat >= moveBackChance / 100)
             {
 
                 if (currentPoint >= 0)

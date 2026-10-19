@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Day 1.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Early Prototype.unity
+    path: Assets/Scenes/Main Menu.unity
+    guid: 37a40952f6d4c4345887e02688702a1d
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
     guid: 31ebc39cd8ca62a41b7f28d7606fc3ec
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
