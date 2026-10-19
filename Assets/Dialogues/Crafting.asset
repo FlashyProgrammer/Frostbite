@@ -19,13 +19,13 @@ MonoBehaviour:
   charLines:
   - charName: '404 '
     line: "There\u2019s stuff on this table.  "
-    lineStayTime: 5
+    lineStayTime: 2
   - charName: ???
     line: 'You can use the tools on the table if you want.  '
-    lineStayTime: 5
+    lineStayTime: 2
   - charName: 404
     line: 'What do I do with them? '
-    lineStayTime: 5
+    lineStayTime: 2
   - charName: ???
     line: You can make things, try it
-    lineStayTime: 5
+    lineStayTime: 2

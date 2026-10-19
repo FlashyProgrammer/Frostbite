@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1808013818180111767}
   - component: {fileID: -1956587768611819500}
   - component: {fileID: -1897175977744379315}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -91,10 +91,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 255
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72094bf03d67f8941998da7e26c8ac79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadarEnemy
-  timerCheck: 25
-  moveBackChance: 70
+  timerCheck: 20
+  moveBackChance: 50
   movePath: []
 --- !u!50 &-1897175977744379315
 Rigidbody2D:

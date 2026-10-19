@@ -4,15 +4,16 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Radar
   - Enemy
-  - Placement Point
   - Trap
   - Item
   - Tailsman
-  - Crafting Table
   - Generator
-  - Item Spawner
+  - Marker
+  - Area
+  - Circle
+  - Event
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Mini Game
+  - Contacts
   - 
   - 
   - 

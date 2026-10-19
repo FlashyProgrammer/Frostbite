@@ -31,10 +31,6 @@ public class TrapPlacement : MonoBehaviour, IInteractable
         }
     }
     public string InteractPrompt => gameObject.name;
-    public bool ShowsUI()
-    {
-        return false;
-    }
 
     public bool Interact()
     {

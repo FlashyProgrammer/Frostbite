@@ -20,10 +20,6 @@ public class ItemTrigger : MonoBehaviour, IInteractable
     }
 
     public string InteractPrompt => item.name;
-    public bool ShowsUI()
-    {
-        return false;
-    }
 
     public bool Interact()
     {

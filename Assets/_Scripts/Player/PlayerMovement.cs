@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDisable()
     {
+        playerVelocity = Vector3.zero;
         inputs.Disable();
     }
 

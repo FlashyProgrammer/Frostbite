@@ -9,14 +9,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
 
     [Header("UI")]
     [SerializeField] private GameObject craftingWindow;
+    private bool hasInteracted;
+    private DialogueTrigger objDialogue;
 
     public string InteractPrompt => gameObject.name;
 
-    public bool ShowsUI()
-    {
-        return true;
-    }
-   
+
     public bool Interact()
     {
         if (!craftingWindow.activeInHierarchy)
@@ -34,6 +32,12 @@ public class CraftingTable : MonoBehaviour, IInteractable
             player.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             
+        }
+        if (TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger) && !hasInteracted)
+        {
+            objDialogue = trigger;
+            objDialogue.EnableTrigger();
+            hasInteracted = true;
         }
         return true;
     }

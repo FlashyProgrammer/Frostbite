@@ -12,6 +12,9 @@ public class ItemSpawner : MonoBehaviour, IInteractable
     [SerializeField] private InventorySystem inventorySystem;
 
     [SerializeField] private Light itemLight;
+
+    [SerializeField] private Minigame MiniGameManager;
+
     private bool canSpawn;
     private float timeCounter;
 
@@ -33,23 +36,29 @@ public class ItemSpawner : MonoBehaviour, IInteractable
     }
 
     public string InteractPrompt => gameObject.name;
-    public bool ShowsUI()
-    {
-        return false;
-    }
     public bool Interact()
     {
-        if (canSpawn)
+        if (canSpawn && !MiniGameManager.GetMiniGameOne().activeInHierarchy)
         {
-            foreach (var item in itemsToSpawn)
-            {
-                var currentItem = Instantiate(item.itemObject, spawnPosition.position, quaternion.identity);
-                inventorySystem.AddItem(item, item.baseQuantity, currentItem);
-
-            }
+            MiniGameManager.GetMiniGameOne().SetActive(true);
+            MiniGameManager.reward = GiveItems;
             itemLight.color = Color.red;
             canSpawn = false;
+
         }
+
         return true;
     }
+
+    private void GiveItems()
+    {
+        foreach (var item in itemsToSpawn)
+        {
+            var currentItem = Instantiate(item.itemObject, spawnPosition.position, quaternion.identity);
+            inventorySystem.AddItem(item, item.baseQuantity, currentItem);
+
+        }
+    }
+
+   
 }

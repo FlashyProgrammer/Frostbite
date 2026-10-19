@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class CraftingSystem : MonoBehaviour
 {
     [SerializeField] private InventorySystem playerInventory;
+
+    [Header("UI")]
     [SerializeField] private List<Image> ingredientIcon;
     [SerializeField] private List<Image> materialsIcon;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [Header("Audio")]
+    [SerializeField] private AudioSource craftSound;
 
     private bool canCraft;
 
@@ -123,6 +127,7 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
         var itemObject = Instantiate(recipe.itemObject);
         playerInventory.AddItem(recipe.output, recipe.output.baseQuantity, itemObject);
+        craftSound.Play();
         CheckCraft(recipe);
     }
 

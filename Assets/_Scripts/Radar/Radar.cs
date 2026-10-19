@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Playables;
 
 public class Radar : MonoBehaviour, IInteractable
 {
@@ -19,7 +19,10 @@ public class Radar : MonoBehaviour, IInteractable
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private PlayerMovement player;
 
-
+    
+    private static DialogueTrigger objDialogue;
+    private static bool hasInteracted;
+   
     private float spawnCounter;
     private bool radarOnScreen;
 
@@ -101,10 +104,6 @@ public class Radar : MonoBehaviour, IInteractable
 
     }
     public string InteractPrompt => gameObject.name;
-    public bool ShowsUI()
-    {
-        return true;
-    }
 
     public bool Interact()
     {
@@ -116,7 +115,13 @@ public class Radar : MonoBehaviour, IInteractable
         {
             hideRadar();
         }
-
+        if (TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger) && !hasInteracted) 
+        {
+            objDialogue = trigger;
+            objDialogue.EnableTrigger();
+            hasInteracted = true;
+        }
+        
         return true;
     }
 

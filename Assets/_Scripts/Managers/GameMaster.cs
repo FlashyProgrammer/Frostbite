@@ -8,11 +8,25 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject winScreenUI;
+    [SerializeField] private GameObject craftingScreen;
 
     [Header("Game Settings")]
     [SerializeField] private PlayerMovement playerMovement;
     private int pauseCounter = 0;
 
+
+    private void Update()
+    {
+        if (craftingScreen.activeInHierarchy)
+        {
+            playerMovement.enabled = false;
+        }
+
+        if (pauseMenuUI.activeInHierarchy)
+        {
+            playerMovement.enabled = true;
+        }
+    }
     private void Awake()
     {
         playerMovement.enabled = true;

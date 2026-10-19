@@ -59,7 +59,13 @@ MonoBehaviour:
   - charName: ???
     line: "There\u2019s a very bad snowstorm. We won\u2019t be able to find you if
       you leave. "
-    lineStayTime: 3
+    lineStayTime: 2
   - charName: 404
     line: "Oh, that\u2019s why it\u2019s so cold."
+    lineStayTime: 3
+  - charName: ???
+    line: You should look around before you sleep...
+    lineStayTime: 3
+  - charName: ???
+    line: Things get difficult at night.
     lineStayTime: 3
