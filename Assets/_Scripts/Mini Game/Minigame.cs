@@ -174,6 +174,7 @@ public class Minigame : MonoBehaviour
         loopCompleted = false;
         hitStopped = false;
         buttonCounter = 0;
+        meterBar.value = 0;
         interaction.enabled = true;
         playerMovement.enabled = true;
         mouseLook.enabled = true;
