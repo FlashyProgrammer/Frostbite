@@ -11,20 +11,23 @@ public class SleepingArea : MonoBehaviour, IInteractable
     public string InteractPrompt => gameObject.name;
     public bool Interact()
     {
-        if (canSleep && !isCompleted)
+        if (canSleep)
         {
             sceneDirector.playableAsset = nightTimeline;
             canSleep = false;
+            isCompleted = false;
+            sceneDirector.Play();
         }
-        else
+
+        if (canSleep && isCompleted)
         {
             sceneDirector.playableAsset = DayTimeline;
             canSleep = true;
             canSleep = false;
             isCompleted = false;
+            sceneDirector.Play();
         }
 
-        sceneDirector.Play();
 
         return true;
     }

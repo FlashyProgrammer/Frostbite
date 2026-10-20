@@ -10933,7 +10933,7 @@ GameObject:
   - component: {fileID: 817509400}
   - component: {fileID: 817509401}
   - component: {fileID: 817509402}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Player Circle
   m_TagString: Player
   m_Icon: {fileID: 0}
