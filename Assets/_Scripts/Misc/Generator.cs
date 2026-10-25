@@ -69,19 +69,19 @@ public class Generator : MonoBehaviour, IInteractable
     public string InteractPrompt => gameObject.name;
     public bool Interact()
     {
-        var currentInventory = playerInventory.GetCurrentInventory();
+        var currentSlot = playerInventory.GetSlot();
 
-        for (int i = 0; i < currentInventory.Count; i++)
+        if (currentSlot.item != null)
         {
-            foreach (var item in requiredItems)
+            if (currentSlot.item.itemName == "Crowbar" && generatorDown)
             {
-                if (currentInventory[i].item == item)
-                {
-                    canFix = true;
-                    Destroy(currentInventory[i].itemObject);
-                    currentInventory[i].Clear();
-                }
+
+                canFix = true;
+                Destroy(currentSlot.itemObject);
+                currentSlot.Clear();
+
             }
+
         }
 
         if (generatorDown && canFix)

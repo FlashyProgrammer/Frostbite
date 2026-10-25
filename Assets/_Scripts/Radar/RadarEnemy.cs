@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class RadarEnemy : MonoBehaviour
 {
+    [Header("Enemy Type")]
+    public bool isWolf;
+    public bool isHuman;
+
     [Header("Enemy Movement Settings")]
     [SerializeField] private float timerCheck;
     [Range(1, 100)]
@@ -11,116 +15,126 @@ public class RadarEnemy : MonoBehaviour
 
     [Header("Movement Ring Points")]
     public List<RectTransform> movePath;
+
+    [Header("Radars")]
+    public bool inRadarOne;
+    public bool inRadarTwo;
+    public bool inRadarThree;
+    public bool inRadarFour;
+
     private EnemySpawner spawner;
-    private bool enemyOverlap;
-    private int currentPoint;
     private RectTransform rectTransform;
-    private float randomFloat;
-    private float timerCounter;
     private Image enemyImage;
+    private int currentPoint;
+    private float timerCounter;
+    private bool enemyOverlap;
+    private bool overlapThisStep;
 
     private void Awake()
     {
-        timerCounter = timerCheck;
         enemyImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
         currentPoint = 0;
     }
 
+    private void OnEnable()
+    {
+        currentPoint = 0;
+        timerCounter = timerCheck;
+        enemyOverlap = false;
+        overlapThisStep = false;
+    }
 
     private void Update()
     {
-        if (timerCounter > 0)
-        {
-            timerCounter -= Time.deltaTime;
-        }
+        if (movePath == null || movePath.Count == 0) return;
 
-        else
-        {
-            randomFloat = Random.Range(0, 1f);
+        timerCounter -= Time.deltaTime;
+        if (timerCounter > 0) return;
+        timerCounter = timerCheck;
 
-            if (randomFloat <= moveBackChance/100)
-            {
-
-                if (currentPoint > 0)
-                {
-                    currentPoint--;
-                    rectTransform.position = movePath[currentPoint].position;
-                    rectTransform.SetParent(movePath[currentPoint]);
-
-                }
-
-                if (currentPoint == 0)
-                {
-                    currentPoint = 0;
-                    rectTransform.position = movePath[currentPoint].position;
-                    rectTransform.SetParent(movePath[currentPoint]);
-                }
-            }
-
-            if (randomFloat >= moveBackChance / 100)
-            {
-
-                if (currentPoint >= 0)
-                {
-                    currentPoint++;
-                    rectTransform.position = movePath[currentPoint].position;
-                    rectTransform.SetParent(movePath[currentPoint]);
-
-                }
-
-                if(currentPoint == movePath.Count - 1)
-                {
-                    currentPoint = movePath.Count - 1;
-                    rectTransform.position = movePath[currentPoint].position;
-                    rectTransform.SetParent(movePath[currentPoint]);
-                }
-
-               
-
-            }
-
-         
-            timerCounter = timerCheck;
-        }
-        
+      
+        bool moveBack = Random.value <= moveBackChance / 100f;
+        currentPoint = Mathf.Clamp(currentPoint + (moveBack ? -1 : 1), 0, movePath.Count - 1);
+        MoveToCurrentPoint();
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void FixedUpdate()
     {
-        Debug.Log(collision.name);
-        if(collision.CompareTag("Enemy"))
-        {
-            enemyOverlap = true;
-        }
-
-        else
-        {
-            enemyOverlap = false;
-        }
+        enemyOverlap = overlapThisStep;
+        overlapThisStep = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Tailsman"))
+        HandleTrigger(collision);
+    }
+
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        HandleTrigger(collision);
+    }
+
+    private void HandleTrigger(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
         {
-            spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
-            collision.gameObject.SetActive(false);
-            currentPoint = 0;
-            rectTransform.position = movePath[currentPoint].position;
-            rectTransform.SetParent(movePath[currentPoint]);
-            enemyImage.enabled = false;
-            gameObject.SetActive(false);
+            overlapThisStep = true;
+            return;
+        }
+
+        if (!collision.TryGetComponent(out TalismanTrap trap)) return;
+        if (!IsInRadar(trap.radarNumber)) return;
+
+        TriggerTrap(collision);
+    }
+
+    private bool IsInRadar(int radarNumber)
+    {
+        switch (radarNumber)
+        {
+            case 1: return inRadarOne;
+            case 2: return inRadarTwo;
+            case 3: return inRadarThree;
+            case 4: return inRadarFour;
+            default: return false;
         }
     }
+
+    private void TriggerTrap(Collider2D trap)
+    {
+        if (spawner != null)
+        {
+            spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
+        }
+
+        trap.gameObject.SetActive(false);
+
+        currentPoint = 0;
+        if (movePath != null && movePath.Count > 0)
+        {
+            MoveToCurrentPoint();
+        }
+
+        enemyImage.enabled = false;
+        gameObject.SetActive(false);
+    }
+
+    private void MoveToCurrentPoint()
+    {
+        rectTransform.position = movePath[currentPoint].position;
+        rectTransform.SetParent(movePath[currentPoint]);
+    }
+
     public bool IsOverlapped()
     {
         return enemyOverlap;
     }
+
     public EnemySpawner SetSpawner(EnemySpawner enemySpawner)
     {
         spawner = enemySpawner;
         return spawner;
     }
-
 }

@@ -15,6 +15,10 @@ public class ItemSpawner : MonoBehaviour, IInteractable
 
     [SerializeField] private Minigame MiniGameManager;
 
+    [SerializeField] private static bool hasInteracted;
+
+    [SerializeField] private DialogueTrigger lockerDialogue;
+
     private bool canSpawn;
     private float timeCounter;
 
@@ -46,6 +50,13 @@ public class ItemSpawner : MonoBehaviour, IInteractable
             canSpawn = false;
 
         }
+
+        if (!hasInteracted)
+        {
+            lockerDialogue.enabled = true;
+        }
+
+        hasInteracted = true;
 
         return true;
     }

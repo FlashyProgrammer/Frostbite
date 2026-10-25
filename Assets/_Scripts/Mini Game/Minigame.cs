@@ -112,7 +112,7 @@ public class Minigame : MonoBehaviour
         if (miniGameThree.activeInHierarchy)
         {
             currentMinigame = miniGameThree;
-            meterBar.value -= decreaseAmount;
+            meterBar.value -= decreaseAmount * Time.deltaTime;
             Disable();
         }
     }

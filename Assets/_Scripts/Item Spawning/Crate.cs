@@ -11,7 +11,7 @@ public class Crate : MonoBehaviour, IInteractable
     [SerializeField] private List<Item> itemsToSpawn;
     [SerializeField] private Transform spawnPosition;
 
-    private DialogueTrigger crateDialogue;
+    private static DialogueTrigger crateDialogue;
 
     private static bool hasInteracted = false;
 
@@ -23,17 +23,19 @@ public class Crate : MonoBehaviour, IInteractable
     public string InteractPrompt => gameObject.name;
     public bool Interact()
     {
-        if (!MiniGameManager.GetMiniGameTwo().activeInHierarchy && hasInteracted)
+        if (MiniGameManager.isActiveAndEnabled)
         {
-            MiniGameManager.GetMiniGameTwo().SetActive(true);
-            MiniGameManager.reward = GiveItems;
+            if (!MiniGameManager.GetMiniGameTwo().activeInHierarchy && hasInteracted)
+            {
+                MiniGameManager.GetMiniGameTwo().SetActive(true);
+                MiniGameManager.reward = GiveItems;
 
+            }
+          
         }
-        else
-        {
-            crateDialogue.enabled = true;
-            hasInteracted = true;
-        }
+
+        crateDialogue.enabled = true;
+        hasInteracted = true;
 
         return true;
     }

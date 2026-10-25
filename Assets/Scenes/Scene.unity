@@ -1160,8 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8d745131a2804787df296d5e86d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyOne: {fileID: 1557141652153506077, guid: 512567227dd37b74ab7966814660d2af, type: 3}
-  enemyTwo: {fileID: 6279814063958136235, guid: 30404ded22a77cb4db08bb25d163772b, type: 3}
+  objectPool: {fileID: 0}
   spawnPoints:
   - {fileID: 1864932358}
   - {fileID: 416177856}
@@ -1171,8 +1170,7 @@ MonoBehaviour:
   - {fileID: 71362354}
   - {fileID: 715701742}
   - {fileID: 1241481230}
-  spawnRateEnemyOne: 2
-  spawnRateEnemyTwo: 0
+  spawnChanceEnemyOne: 0
   maxToSpawn: 4
   pathOne:
   - {fileID: 1864932358}
@@ -1223,6 +1221,10 @@ MonoBehaviour:
   - {fileID: 1884154764}
   - {fileID: 1361649575}
   activeEnemies: []
+  spawnerRadarOne: 0
+  spawnerRadarTwo: 0
+  spawnerRadarThree: 0
+  spawnerRadarFour: 0
 --- !u!1 &85111926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,12 +2217,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59c88efdb01ba247a8422815652c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  headbob: {fileID: 0}
   moveSpeed: 3
   sprintSpeed: 6
   crouchSpeed: 1.8
   crouchHeight: 0.5
   playerFriction: 4
   playerGravity: -9.8
+  walkHeadbobAmount: 0
+  sprintHeadbobAmount: 0
+  crouchHeadbobAmount: 0
 --- !u!114 &242142126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2342,6 +2348,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dd5851df-4510-4544-a276-112165d8fb33
     m_ActionName: 'Player/Cycle (Left)[/Keyboard/leftArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 06e99477-39c9-4d3f-b82e-9ba8a3d70c72
+    m_ActionName: 'Player/Drop[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ff8419ad-a954-422e-b53d-04d610e2b6f5
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 33100c2a-1a93-438c-91cc-e5951392a7f4
+    m_ActionName: 'Player/Confirm[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 61d81dc1-9882-4967-9c38-d118ac1eded9
+    m_ActionName: 'Player/UI Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2392,7 +2414,12 @@ MonoBehaviour:
   rayDistance: 2.5
   followPoint: {fileID: 2115740434}
   dropPoint: {fileID: 2056176884}
+  interactText: {fileID: 0}
+  interactPrompt: {fileID: 0}
+  craftingWindow: {fileID: 0}
   inventory: {fileID: 656735811}
+  radarInteractions: {fileID: 0}
+  craftingInteractions: {fileID: 0}
 --- !u!1 &267427327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,8 +3153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapManager
   tailsmanRadar: {fileID: 1557141652153506077, guid: a741a53d36825f14eb581c992b30cb93, type: 3}
-  radarSpawnPoint: {fileID: 1907156503}
-  groundSpawnPoint: {fileID: 85111927}
+  placedTailsman: {fileID: 0}
   inventory: {fileID: 656735811}
 --- !u!1 &340860771
 GameObject:
@@ -4931,9 +4957,14 @@ MonoBehaviour:
   - {fileID: 2145769923}
   - {fileID: 1911769575}
   - {fileID: 1607328245}
+  miniInventory: {fileID: 0}
+  dialogueTextOne: {fileID: 0}
+  dialogueTextTwo: {fileID: 0}
   spawner: {fileID: 1863455930}
   spawnTimer: 15
   trapPlacement: {fileID: 860625344}
+  mouseLook: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &596075541
 GameObject:
   m_ObjectHideFlags: 0
@@ -5012,7 +5043,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 32
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -5496,12 +5527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831e817601289504a9d8687d5bd75a69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySystem
-  currentInventory:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  slots: []
   playerInteraction: {fileID: 242142129}
   slotImages:
   - {fileID: 322881411}
@@ -5509,7 +5535,11 @@ MonoBehaviour:
   - {fileID: 1156439493}
   - {fileID: 975131032}
   - {fileID: 1474041336}
+  activeSlotImages: []
+  numberText: []
   maxInventorySize: 5
+  followObject: {fileID: 0}
+  groundPoint: {fileID: 0}
 --- !u!4 &656735812
 Transform:
   m_ObjectHideFlags: 0
@@ -5801,9 +5831,14 @@ MonoBehaviour:
   - {fileID: 1654376759}
   - {fileID: 1928465956}
   - {fileID: 817509399}
+  miniInventory: {fileID: 0}
+  dialogueTextOne: {fileID: 0}
+  dialogueTextTwo: {fileID: 0}
   spawner: {fileID: 1081174728}
   spawnTimer: 15
   trapPlacement: {fileID: 1629361200}
+  mouseLook: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &689941042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5837,6 +5872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTrigger
   item: {fileID: 11400000, guid: bbbf61ab4c9b25b41a3bfe1c03f46e88, type: 2}
+  inventory: {fileID: 0}
+  quantity: 1
 --- !u!65 &689941044
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7434,8 +7471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapManager
   tailsmanRadar: {fileID: 1557141652153506077, guid: a741a53d36825f14eb581c992b30cb93, type: 3}
-  radarSpawnPoint: {fileID: 1912986888}
-  groundSpawnPoint: {fileID: 403058948}
+  placedTailsman: {fileID: 0}
   inventory: {fileID: 656735811}
 --- !u!1 &862380749
 GameObject:
@@ -39029,9 +39065,14 @@ MonoBehaviour:
   - {fileID: 1287178586}
   - {fileID: 208725294}
   - {fileID: 797032898}
+  miniInventory: {fileID: 0}
+  dialogueTextOne: {fileID: 0}
+  dialogueTextTwo: {fileID: 0}
   spawner: {fileID: 83473603}
   spawnTimer: 15
   trapPlacement: {fileID: 338282194}
+  mouseLook: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &996961732
 GameObject:
   m_ObjectHideFlags: 0
@@ -39353,6 +39394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTrigger
   item: {fileID: 11400000, guid: bbbf61ab4c9b25b41a3bfe1c03f46e88, type: 2}
+  inventory: {fileID: 0}
+  quantity: 1
 --- !u!65 &1006107924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39930,8 +39973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8d745131a2804787df296d5e86d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyOne: {fileID: 1557141652153506077, guid: 512567227dd37b74ab7966814660d2af, type: 3}
-  enemyTwo: {fileID: 6279814063958136235, guid: 30404ded22a77cb4db08bb25d163772b, type: 3}
+  objectPool: {fileID: 0}
   spawnPoints:
   - {fileID: 1187453185}
   - {fileID: 1679187178}
@@ -39941,8 +39983,7 @@ MonoBehaviour:
   - {fileID: 862380750}
   - {fileID: 153301638}
   - {fileID: 2056268154}
-  spawnRateEnemyOne: 2
-  spawnRateEnemyTwo: 0
+  spawnChanceEnemyOne: 0
   maxToSpawn: 4
   pathOne:
   - {fileID: 1187453185}
@@ -39993,6 +40034,10 @@ MonoBehaviour:
   - {fileID: 1650612813}
   - {fileID: 40463587}
   activeEnemies: []
+  spawnerRadarOne: 0
+  spawnerRadarTwo: 0
+  spawnerRadarThree: 0
+  spawnerRadarFour: 0
 --- !u!1 &1104595187
 GameObject:
   m_ObjectHideFlags: 0
@@ -40634,6 +40679,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTrigger
   item: {fileID: 11400000, guid: bbbf61ab4c9b25b41a3bfe1c03f46e88, type: 2}
+  inventory: {fileID: 0}
+  quantity: 1
 --- !u!65 &1167255893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42559,8 +42606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapManager
   tailsmanRadar: {fileID: 1557141652153506077, guid: a741a53d36825f14eb581c992b30cb93, type: 3}
-  radarSpawnPoint: {fileID: 81432207}
-  groundSpawnPoint: {fileID: 788103939}
+  placedTailsman: {fileID: 0}
   inventory: {fileID: 656735811}
 --- !u!1 &1385540594
 GameObject:
@@ -43936,9 +43982,14 @@ MonoBehaviour:
   - {fileID: 2023608593}
   - {fileID: 749618851}
   - {fileID: 1123585533}
+  miniInventory: {fileID: 0}
+  dialogueTextOne: {fileID: 0}
+  dialogueTextTwo: {fileID: 0}
   spawner: {fileID: 1854488427}
   spawnTimer: 15
   trapPlacement: {fileID: 1378367289}
+  mouseLook: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &1522570881
 GameObject:
   m_ObjectHideFlags: 0
@@ -44869,8 +44920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapManager
   tailsmanRadar: {fileID: 1557141652153506077, guid: a741a53d36825f14eb581c992b30cb93, type: 3}
-  radarSpawnPoint: {fileID: 446108236}
-  groundSpawnPoint: {fileID: 1969421663}
+  placedTailsman: {fileID: 0}
   inventory: {fileID: 656735811}
 --- !u!1 &1631604172
 GameObject:
@@ -45853,9 +45903,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   dialogueText: {fileID: 597819084}
+  dialogueTextTwo: {fileID: 0}
   textSpeed: 0.01
   voicePoint: {fileID: 1977708696}
-  startTime: 0.01
 --- !u!4 &1721071188
 Transform:
   m_ObjectHideFlags: 0
@@ -45883,8 +45933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02dbdd7816ce6744a72578807aec58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
-  characterList:
-  - {fileID: 11400000, guid: 61528fb5835cf0743abc465bb1938cee, type: 2}
+  dialogue: []
 --- !u!1 &1728235962
 GameObject:
   m_ObjectHideFlags: 0
@@ -46824,8 +46873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8d745131a2804787df296d5e86d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyOne: {fileID: 1557141652153506077, guid: 512567227dd37b74ab7966814660d2af, type: 3}
-  enemyTwo: {fileID: 6279814063958136235, guid: 30404ded22a77cb4db08bb25d163772b, type: 3}
+  objectPool: {fileID: 0}
   spawnPoints:
   - {fileID: 221935054}
   - {fileID: 1728235963}
@@ -46835,8 +46883,7 @@ MonoBehaviour:
   - {fileID: 1798117602}
   - {fileID: 2140532873}
   - {fileID: 2075662724}
-  spawnRateEnemyOne: 2
-  spawnRateEnemyTwo: 0
+  spawnChanceEnemyOne: 0
   maxToSpawn: 4
   pathOne:
   - {fileID: 221935054}
@@ -46887,6 +46934,10 @@ MonoBehaviour:
   - {fileID: 21723582}
   - {fileID: 1322075339}
   activeEnemies: []
+  spawnerRadarOne: 0
+  spawnerRadarTwo: 0
+  spawnerRadarThree: 0
+  spawnerRadarFour: 0
 --- !u!1 &1863455928
 GameObject:
   m_ObjectHideFlags: 0
@@ -46936,8 +46987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec8d745131a2804787df296d5e86d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyOne: {fileID: 1557141652153506077, guid: 512567227dd37b74ab7966814660d2af, type: 3}
-  enemyTwo: {fileID: 6279814063958136235, guid: 30404ded22a77cb4db08bb25d163772b, type: 3}
+  objectPool: {fileID: 0}
   spawnPoints:
   - {fileID: 1235958862}
   - {fileID: 614163229}
@@ -46947,8 +46997,7 @@ MonoBehaviour:
   - {fileID: 1460452115}
   - {fileID: 577207934}
   - {fileID: 1368212908}
-  spawnRateEnemyOne: 2
-  spawnRateEnemyTwo: 0
+  spawnChanceEnemyOne: 0
   maxToSpawn: 4
   pathOne:
   - {fileID: 1235958862}
@@ -46999,6 +47048,10 @@ MonoBehaviour:
   - {fileID: 1547085220}
   - {fileID: 1691802632}
   activeEnemies: []
+  spawnerRadarOne: 0
+  spawnerRadarTwo: 0
+  spawnerRadarThree: 0
+  spawnerRadarFour: 0
 --- !u!1 &1864932357
 GameObject:
   m_ObjectHideFlags: 0
@@ -50237,6 +50290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTrigger
   item: {fileID: 11400000, guid: bbbf61ab4c9b25b41a3bfe1c03f46e88, type: 2}
+  inventory: {fileID: 0}
+  quantity: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -148,8 +148,9 @@ public class InventorySystem : MonoBehaviour
             if (slots[currentIndex].itemObject != null)
             {
                 slots[currentIndex].itemObject.SetActive(false);
+                activeSlotImages[currentIndex].gameObject.SetActive(false);
             }
-            
+
             currentIndex++;
 
 
@@ -162,6 +163,7 @@ public class InventorySystem : MonoBehaviour
             if (slots[currentIndex].itemObject != null)
             {
                 slots[currentIndex].itemObject.SetActive(true);
+                activeSlotImages[currentIndex].gameObject.SetActive(true);
             }
 
             else
@@ -179,6 +181,7 @@ public class InventorySystem : MonoBehaviour
             if (slots[currentIndex].itemObject != null)
             {
                 slots[currentIndex].itemObject.SetActive(false);
+                activeSlotImages[currentIndex].gameObject.SetActive(false);
             }
 
             currentIndex--;
@@ -192,6 +195,7 @@ public class InventorySystem : MonoBehaviour
             if (slots[currentIndex].itemObject != null)
             {
                 slots[currentIndex].itemObject.SetActive(true);
+                activeSlotImages[currentIndex].gameObject.SetActive(true);
             }
 
             else
@@ -209,7 +213,7 @@ public class InventorySystem : MonoBehaviour
             Vector2 scrollDelta = Mouse.current.scroll.ReadValue();
             float scrollY = scrollDelta.y;
 
-            if(scrollY < 0f)
+            if(scrollY > 0f)
             {
                 if (slots[currentIndex].itemObject != null)
                 {
@@ -232,7 +236,7 @@ public class InventorySystem : MonoBehaviour
                 }
             }
 
-            if (scrollY > 0f)
+            if (scrollY < 0f)
             {
                 if (slots[currentIndex].itemObject != null)
                 {
@@ -245,7 +249,7 @@ public class InventorySystem : MonoBehaviour
 
                 if (currentIndex == maxInventorySize)
                 {
-                    currentIndex = slots.Count - 1;
+                    currentIndex = 0;
                 }
 
 
@@ -262,6 +266,7 @@ public class InventorySystem : MonoBehaviour
     {
         if(context.performed && slots[currentIndex] != null && slots[currentIndex].item != null)
         {
+            activeSlotImages[currentIndex].gameObject.SetActive(false);
             RemoveItem(slots[currentIndex].itemObject);
         }
     }

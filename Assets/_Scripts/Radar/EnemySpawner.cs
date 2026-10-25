@@ -24,6 +24,12 @@ public class EnemySpawner : MonoBehaviour
 
     [HideInInspector] public List<GameObject> activeEnemies;
 
+    [Header("Spawner to Radar")]
+    [SerializeField] private bool spawnerRadarOne;
+    [SerializeField] private bool spawnerRadarTwo;
+    [SerializeField] private bool spawnerRadarThree;
+    [SerializeField] private bool spawnerRadarFour;
+
     private GameObject spawnedEnemy;
     private RadarEnemy spawnedRadar;
     private Image spawnedImage;
@@ -50,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void EnemySpawn()
     {
+       
         if (spawnPoints.Count == 0 || numberSpawned >= maxToSpawn) return;
 
         float randomFloat = Random.Range(0f, 1f);
@@ -75,6 +82,11 @@ public class EnemySpawner : MonoBehaviour
 
         activeEnemies.Add(spawnedEnemy);
         spawnedRadar.SetSpawner(this);
+
+        spawnedRadar.inRadarOne = spawnerRadarOne;
+        spawnedRadar.inRadarTwo = spawnerRadarTwo;
+        spawnedRadar.inRadarThree = spawnerRadarThree;
+        spawnedRadar.inRadarFour = spawnerRadarFour;
 
         PlaceEnemy(randomIndex);
     }

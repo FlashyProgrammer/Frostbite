@@ -15,11 +15,14 @@ public class Radar : MonoBehaviour, IInteractable
     [SerializeField] private float spawnTimer;
     [SerializeField] private TrapPlacement trapPlacement;
 
+
     [Header("Player Misc")]
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private PlayerMovement player;
 
-    
+
+
+
     private static DialogueTrigger objDialogue;
     private static bool hasInteracted;
    

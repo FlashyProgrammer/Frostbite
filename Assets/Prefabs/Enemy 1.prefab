@@ -126,9 +126,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72094bf03d67f8941998da7e26c8ac79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadarEnemy
-  timerCheck: 20
+  isWolf: 1
+  isHuman: 0
+  timerCheck: 40
   moveBackChance: 50
   movePath: []
+  inRadarOne: 0
+  inRadarTwo: 0
+  inRadarThree: 0
+  inRadarFour: 0
 --- !u!50 &-1897175977744379315
 Rigidbody2D:
   serializedVersion: 5
