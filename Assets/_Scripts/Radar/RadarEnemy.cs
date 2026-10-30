@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class RadarEnemy : MonoBehaviour
     public bool inRadarThree;
     public bool inRadarFour;
 
+  
     private EnemySpawner spawner;
     private RectTransform rectTransform;
     private Image enemyImage;
@@ -47,12 +49,13 @@ public class RadarEnemy : MonoBehaviour
 
     private void Update()
     {
+      
         if (movePath == null || movePath.Count == 0) return;
 
         timerCounter -= Time.deltaTime;
         if (timerCounter > 0) return;
-        timerCounter = timerCheck;
 
+        timerCounter = timerCheck;
       
         bool moveBack = Random.value <= moveBackChance / 100f;
         currentPoint = Mathf.Clamp(currentPoint + (moveBack ? -1 : 1), 0, movePath.Count - 1);
@@ -137,4 +140,5 @@ public class RadarEnemy : MonoBehaviour
         spawner = enemySpawner;
         return spawner;
     }
+
 }

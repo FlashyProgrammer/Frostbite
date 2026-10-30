@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Voice")]
     [SerializeField] private AudioSource voicePoint;
-   
+
+    [Header("Cut scene Settings")]
+    [SerializeField] private PlayableDirector director;
+
 
     private bool isTyping;
     private string currentName;
@@ -36,7 +40,7 @@ public class DialogueManager : MonoBehaviour
         stayTimes = new Queue<float>();
         charNames = new Queue<string>();
     }
-  
+
     public void BeginDialogue(Dialogue character)
     {
         lineList.Clear();
@@ -141,7 +145,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (context.performed)
         {
-            DisplayNextLine();
+            EndDialogue();
+            director.time = director.duration;
+            director.Evaluate();
+            director.Stop();
         }
     }
     

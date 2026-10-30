@@ -22,11 +22,6 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Inventory Management")]
     [SerializeField] private InventorySystem inventory;
     private GameObject currentInteractable;
-
-    [Header("Dialogue Interactions")]
-    [SerializeField] private GameObject radarInteractions;
-    [SerializeField] private GameObject craftingInteractions;
-
     private PlayerMovement player;
 
     private void Awake()
@@ -59,7 +54,12 @@ public class PlayerInteraction : MonoBehaviour
         if (currentInteractable != null && player.enabled)
         {
             interactPrompt.SetActive(true);
-            interactText.text = currentInteractable.name;
+
+            if (currentInteractable.TryGetComponent<IInteractable>(out IInteractable interactable))
+            {
+                interactText.text = interactable.InteractPrompt;
+                
+            }
         }
         else
         {

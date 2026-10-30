@@ -34,6 +34,7 @@ public class Minigame : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private PlayerInteraction interaction;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerMovement roverMovement;
     [SerializeField] private CameraMove mouseLook;
 
 
@@ -164,6 +165,10 @@ public class Minigame : MonoBehaviour
     {
         interaction.enabled = false;
         playerMovement.enabled = false;
+        if(roverMovement != null)
+        {
+            roverMovement.enabled = false;
+        }
         mouseLook.enabled = false;
     }
     public void Reset()
@@ -177,6 +182,10 @@ public class Minigame : MonoBehaviour
         meterBar.value = 0;
         interaction.enabled = true;
         playerMovement.enabled = true;
+        if (roverMovement != null)
+        {
+            roverMovement.enabled = true;
+        }
         mouseLook.enabled = true;
         marker.gameObject.GetComponent<Marker>().canCheck = false;
         currentMinigame.SetActive(false);

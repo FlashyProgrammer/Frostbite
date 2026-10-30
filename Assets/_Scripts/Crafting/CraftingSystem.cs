@@ -43,7 +43,7 @@ public void CheckCraft(ItemRecipes itemRecipes)
             // Checks overall quantity amount of qualified ingredients owned
             int amountOwned = 0;
 
-            // Foreach = will run twice
+            // Run number is equal to number of ingredients in recipe
             foreach (var slot in currentInventory)
             {
                 if (slot.item == ingredient.item)
@@ -127,6 +127,7 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
         var itemObject = Instantiate(recipe.itemObject);
         playerInventory.AddItem(recipe.output, recipe.output.baseQuantity, itemObject);
+        playerInventory.RefreshSelection();
         craftSound.Play();
         CheckCraft(recipe);
     }

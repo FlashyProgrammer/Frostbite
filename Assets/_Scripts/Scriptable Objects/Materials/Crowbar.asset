@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Crowbar
   itemDescription: Can be used to pry open the generator once.
   itemIcon: {fileID: 21300000, guid: bef0503acc057ec43aa4f82dc23a24bb, type: 3}
-  itemObject: {fileID: 8702948347478363142, guid: 5321d5d32783a354d90c4ef5f0baada8, type: 3}
+  itemObject: {fileID: 8138307045630619727, guid: a256d3c54b02fbc4e90ea870c0f5008a, type: 3}
   canStack: 0
   baseQuantity: 1
   stackLimit: 1

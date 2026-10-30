@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class CameraMove : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private Transform followPoint;
     [SerializeField] private Sprite gameCursor;
     
     [Header("Mouse Input")]
@@ -20,10 +21,10 @@ public class CameraMove : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+      
     }
     void Update()
     {
-
         if (Mouse.current != null) 
         {
             float mouseY = Mouse.current.delta.y.ReadValue() * mouseSensitivityY * Time.deltaTime;
@@ -35,7 +36,7 @@ public class CameraMove : MonoBehaviour
 
         }
 
-        if(Gamepad.current != null)
+        if (Gamepad.current != null)
         {
             float stickY = Gamepad.current.rightStick.y.ReadValue() * controllerSensitivityY * Time.deltaTime;
             float stickX = Gamepad.current.rightStick.x.ReadValue() * controllerSensitivityX * Time.deltaTime;
@@ -44,6 +45,7 @@ public class CameraMove : MonoBehaviour
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             player.Rotate(Vector3.up * stickX);
         }
+        followPoint.rotation = new Quaternion (transform.position.x, transform.position.y, 0, 0);
 
     }
 }

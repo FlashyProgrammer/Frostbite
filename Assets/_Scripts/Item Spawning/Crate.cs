@@ -11,6 +11,10 @@ public class Crate : MonoBehaviour, IInteractable
     [SerializeField] private List<Item> itemsToSpawn;
     [SerializeField] private Transform spawnPosition;
 
+    [Header("Mini Game Type")]
+    [SerializeField] private bool isMinigameOne;
+    [SerializeField] private bool isMinigameTwo;
+
     private static DialogueTrigger crateDialogue;
 
     private static bool hasInteracted = false;
@@ -23,7 +27,7 @@ public class Crate : MonoBehaviour, IInteractable
     public string InteractPrompt => gameObject.name;
     public bool Interact()
     {
-        if (MiniGameManager.isActiveAndEnabled)
+        if (MiniGameManager.isActiveAndEnabled && isMinigameTwo)
         {
             if (!MiniGameManager.GetMiniGameTwo().activeInHierarchy && hasInteracted)
             {
@@ -33,7 +37,16 @@ public class Crate : MonoBehaviour, IInteractable
             }
           
         }
+        if (MiniGameManager.isActiveAndEnabled && isMinigameOne)
+        {
+            if (!MiniGameManager.GetMiniGameOne().activeInHierarchy && hasInteracted)
+            {
+                MiniGameManager.GetMiniGameOne().SetActive(true);
+                MiniGameManager.reward = GiveItems;
 
+            }
+
+        }
         crateDialogue.enabled = true;
         hasInteracted = true;
 
@@ -48,7 +61,9 @@ public class Crate : MonoBehaviour, IInteractable
 
             if (itemsToSpawn[randomIndex] != null)
             {
-                var currentItem = Instantiate(itemsToSpawn[randomIndex].itemObject, spawnPosition.position, quaternion.identity);
+                var currentItem = Instantiate(itemsToSpawn[randomIndex].itemObject, spawnPosition.position,
+                    itemsToSpawn[randomIndex].itemObject.transform.rotation);
+
                 inventorySystem.AddItem(itemsToSpawn[randomIndex], itemsToSpawn[randomIndex].baseQuantity, currentItem);
                 itemsToSpawn.RemoveAt(randomIndex);
             }

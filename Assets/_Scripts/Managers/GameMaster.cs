@@ -67,7 +67,7 @@ public class GameMaster : MonoBehaviour
 
     public void Pause(InputAction.CallbackContext context)
     {
-        if (context.performed && pauseCounter == 0)
+        if (context.performed && pauseCounter == 0 && playerMovement.enabled)
         {
             pauseMenuUI.SetActive(true);
             playerMovement.enabled = false;

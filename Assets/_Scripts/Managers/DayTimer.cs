@@ -10,9 +10,13 @@ public class DayTimer : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI roverTimer;
 
     [Header("Game Master")]
     [SerializeField] private GameMaster gameMaster;
+
+    [Header("Misc")]
+    [SerializeField] private GameObject playerRover;
 
 
     private void Awake()
@@ -39,6 +43,22 @@ public class DayTimer : MonoBehaviour
             OnTimerEnd();
         }
 
+        if (playerRover != null)
+        {
+            if (playerRover.activeInHierarchy)
+            {
+                timeText.enabled = false;
+                roverTimer.enabled = true;
+            }
+
+            else
+            {
+                timeText.enabled = true;
+            }
+
+        }
+
+
     }
 
     void UpdateTimerDisplay(float timeToDisplay)
@@ -47,8 +67,9 @@ public class DayTimer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-    
+
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        if(playerRover != null) roverTimer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     void OnTimerEnd()

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4875cca10598a7644bc484cd5a43187e, type: 3}
+  m_Name: Bear Trap (Recipe)
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRecipes
+  recipe:
+  - item: {fileID: 11400000, guid: 0e4d5ed9d2f44d745abe22f1f5ee442d, type: 2}
+    quantity: 3
+  itemObject: {fileID: 6174646263663466836, guid: e8aaebbb06f77db41a20e9cd25dcbda8, type: 3}
+  output: {fileID: 11400000, guid: bbbf61ab4c9b25b41a3bfe1c03f46e88, type: 2}

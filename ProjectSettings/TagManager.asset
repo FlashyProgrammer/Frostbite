@@ -14,6 +14,8 @@ TagManager:
   - Circle
   - Event
   - Obstacle
+  - Ground
+  - Stalker
   layers:
   - Default
   - TransparentFX
@@ -24,12 +26,12 @@ TagManager:
   - Ground
   - Mini Game
   - Contacts
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Interactable (Outside)
+  - Drone
+  - Snow
+  - Building
+  - Doors
+  - Enemy
   - 
   - 
   - 
