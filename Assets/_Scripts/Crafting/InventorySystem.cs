@@ -279,11 +279,12 @@ public class InventorySystem : MonoBehaviour
             {
                 activeSlotImages[i].gameObject.SetActive(selected && obj != null);
             }
+            UpdateSlotUI(i);
         }
     }
 
 
-    private void UpdateSlotUI(int index)
+    public void UpdateSlotUI(int index)
     {
         InventorySlot slot = slots[index];
         bool empty = slot.IsEmpty;

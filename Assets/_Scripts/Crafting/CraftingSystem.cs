@@ -89,6 +89,7 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
     public void CraftItem(ItemRecipes recipe)
     {
+        
         if (!canCraft)
         {
             Debug.Log("Can't craft");
@@ -116,7 +117,6 @@ public void CheckCraft(ItemRecipes itemRecipes)
                 int amountFromThisSlot = Mathf.Min(slot.quantity, amountToRemove);
                 slot.quantity -= amountFromThisSlot;
                 amountToRemove -= amountFromThisSlot;
-
                 if (slot.quantity <= 0)
                 {
                     Destroy(slot.itemObject);
