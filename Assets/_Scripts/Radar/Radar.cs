@@ -121,10 +121,10 @@ public class Radar : MonoBehaviour, IInteractable
         if (TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger) && !hasInteracted) 
         {
             objDialogue = trigger;
-            objDialogue.EnableTrigger();
-            hasInteracted = true;
+            objDialogue.TriggerDialogue();
         }
         
+        hasInteracted = true;
         return true;
     }
 

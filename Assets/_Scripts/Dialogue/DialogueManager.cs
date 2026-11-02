@@ -139,6 +139,8 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         dialogueTextTwo.text = dialogueText.text;
         dialogueText.gameObject.SetActive(false);
+        dialogueTextTwo.gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 
     public void PressNext(InputAction.CallbackContext context)

@@ -263,12 +263,11 @@ public class EnemyAI : MonoBehaviour
             else
             {
                 footstep.enabled = false;
-                roverManager.Destroyed();
                 playerIsDead = true;
-
                 
             }
         }
+        roverManager.Destroyed();
     }
 
     private void ResetAttack()

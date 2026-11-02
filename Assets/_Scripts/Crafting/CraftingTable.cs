@@ -33,12 +33,11 @@ public class CraftingTable : MonoBehaviour, IInteractable
             Cursor.lockState = CursorLockMode.Locked;
             
         }
-        if (TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger) && !hasInteracted)
+        if (TryGetComponent<DialogueTrigger>(out DialogueTrigger objDialogue) && !hasInteracted)
         {
-            objDialogue = trigger;
-            objDialogue.EnableTrigger();
-            hasInteracted = true;
+            objDialogue.TriggerDialogue();
         }
+        hasInteracted = true;
         return true;
     }
 }

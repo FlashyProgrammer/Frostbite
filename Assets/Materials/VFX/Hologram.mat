@@ -73,23 +73,23 @@ Material:
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _FlickerSpeed: 2
-    - _Flickers: 0
-    - _FresnelPow: 2.5
+    - _Flickers: 1
+    - _FresnelPow: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _VertexOffset: 0.08
+    - _VertexOffset: 0.01
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _FresnelColour: {r: 2.6101818, g: 11.951681, b: 14.188679, a: 1}
+    - _FresnelColour: {r: 0.48593807, g: 1.5849056, b: 1.0124642, a: 1}
     - _LineColour: {r: 0.31510323, g: 0.6886792, b: 0.6093921, a: 1}
     - _LineSpeed: {r: 0, g: 2, b: 0, a: 0}
-    - _LineTiling: {r: 0, g: 30, b: 0, a: 0}
+    - _LineTiling: {r: 0, g: 15.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

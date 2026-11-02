@@ -34,7 +34,6 @@ public class Generator : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        generatorDialogue = GetComponent<DialogueTrigger>();
         time = Random.Range(minTime, maxTime);
         timeCounter = time;
     }
@@ -49,8 +48,7 @@ public class Generator : MonoBehaviour, IInteractable
         else
         {
             generatorDown = true;
-
-            generatorDialogue.enabled = true;
+            if(TryGetComponent<DialogueTrigger>(out generatorDialogue)) generatorDialogue.TriggerDialogue();
 
             foreach (Light light in facilityLights)
             {
@@ -77,8 +75,6 @@ public class Generator : MonoBehaviour, IInteractable
             {
 
                 canFix = true;
-                Destroy(currentSlot.itemObject);
-                currentSlot.Clear();
 
             }
 

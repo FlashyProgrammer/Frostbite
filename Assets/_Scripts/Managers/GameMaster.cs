@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameMaster : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class GameMaster : MonoBehaviour
 
     [Header("Game Settings")]
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerInteraction playerInteraction;
+    [SerializeField] private CameraMove mouseLook;
+    [SerializeField] private SleepingArea sleepingArea;
+    [SerializeField] private List<EnemySpawner> enemySpawners;
     private int pauseCounter = 0;
 
 
@@ -42,11 +47,19 @@ public class GameMaster : MonoBehaviour
     }
     public void DayOver()
     {
-        winScreenUI.SetActive(true);
-        playerMovement.enabled = false;
-        Cursor.lockState = CursorLockMode.None;
-        AudioListener.pause = true;
-        Time.timeScale = 0f;
+
+        sleepingArea.isCompleted = true;
+        sleepingArea.canSleep = true;
+        foreach (var spawner in enemySpawners)
+        {
+            foreach (var enemy in spawner.activeEnemies)
+            {
+                enemy.SetActive(false);
+            }
+
+            spawner.activeEnemies.Clear();
+            spawner.enabled = false;
+        }
 
 
     }
@@ -91,8 +104,23 @@ public class GameMaster : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1f;
             AudioListener.pause = false;
-            pauseCounter = 0;                                  
+            pauseCounter = 0;
         }
-       
+
+    }
+
+    public void FreezePlayer()
+    {
+        playerMovement.enabled = false;
+        playerInteraction.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        mouseLook.enabled = false;
+    }
+    public void UnfreezePlayer()
+    {
+        playerMovement.enabled = true;
+        playerInteraction.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        mouseLook.enabled = true;
     }
 }

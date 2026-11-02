@@ -10,11 +10,6 @@ public class DialogueTrigger : MonoBehaviour
         TriggerDialogue();
     }
 
-    private void OnEnable()
-    {
-        TriggerDialogue();
-    }
-
     public void EnableTrigger()
     {
         this.gameObject.GetComponent<DialogueTrigger>().enabled = true;
@@ -26,7 +21,8 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue()
     {
-            FindAnyObjectByType<DialogueManager>().BeginDialogue(dialogue[dialogueCount]);
+        FindAnyObjectByType<DialogueManager>().BeginDialogue(dialogue[dialogueCount]);
+        
     }
 
     public void nextDialogue()

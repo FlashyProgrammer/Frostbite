@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 public class Crate : MonoBehaviour, IInteractable
@@ -16,40 +16,52 @@ public class Crate : MonoBehaviour, IInteractable
     [SerializeField] private bool isMinigameTwo;
 
     private static DialogueTrigger crateDialogue;
-
     private static bool hasInteracted = false;
-
-    private void Awake()
-    {
-        crateDialogue = GetComponent<DialogueTrigger>();
-    }
 
     public string InteractPrompt => gameObject.name;
     public bool Interact()
     {
         if (MiniGameManager.isActiveAndEnabled && isMinigameTwo)
         {
-            if (!MiniGameManager.GetMiniGameTwo().activeInHierarchy && hasInteracted)
+            if (!MiniGameManager.GetMiniGameTwo().activeInHierarchy)
             {
-                MiniGameManager.GetMiniGameTwo().SetActive(true);
-                MiniGameManager.reward = GiveItems;
+                if (itemsToSpawn.Count != 0)
+                {
+                    MiniGameManager.GetMiniGameTwo().SetActive(true);
+                    MiniGameManager.reward = GiveItems;
+                }
+                else
+                {
+                    gameObject.name = "Crate (Empty)";
+                }
 
             }
-          
+
         }
         if (MiniGameManager.isActiveAndEnabled && isMinigameOne)
         {
-            if (!MiniGameManager.GetMiniGameOne().activeInHierarchy && hasInteracted)
+            if (!MiniGameManager.GetMiniGameOne().activeInHierarchy)
             {
-                MiniGameManager.GetMiniGameOne().SetActive(true);
-                MiniGameManager.reward = GiveItems;
+                if (itemsToSpawn.Count != 0)
+                {
+                    MiniGameManager.GetMiniGameOne().SetActive(true);
+                    MiniGameManager.reward = GiveItems;
+                }
+                else
+                {
+                    gameObject.name = "Crate (Empty)";
+                }
+
 
             }
 
         }
-        crateDialogue.enabled = true;
-        hasInteracted = true;
+        if (TryGetComponent<DialogueTrigger>(out crateDialogue) && !hasInteracted)
+        {
+            crateDialogue.TriggerDialogue();
 
+        }
+        hasInteracted = true;
         return true;
     }
 

@@ -80,13 +80,10 @@ public class EnemySpawner : MonoBehaviour
         spawnedImage = spawnedEnemy.GetComponent<Image>();
         spawnedImage.enabled = true;
 
-        activeEnemies.Add(spawnedEnemy);
+        if(!activeEnemies.Contains(spawnedEnemy)) activeEnemies.Add(spawnedEnemy);
         spawnedRadar.SetSpawner(this);
 
-        spawnedRadar.inRadarOne = spawnerRadarOne;
-        spawnedRadar.inRadarTwo = spawnerRadarTwo;
-        spawnedRadar.inRadarThree = spawnerRadarThree;
-        spawnedRadar.inRadarFour = spawnerRadarFour;
+        spawnedRadar.ConfigureRadars(spawnerRadarOne, spawnerRadarTwo, spawnerRadarThree, spawnerRadarFour);
 
         PlaceEnemy(randomIndex);
     }
@@ -126,7 +123,27 @@ public class EnemySpawner : MonoBehaviour
                 return null;
         }
     }
+    public bool GetSpawnerRadar()
+    {
+        if (spawnerRadarOne)
+        {
+            return spawnerRadarOne;
+        }
+        if (spawnerRadarTwo)
+        {
+            return spawnerRadarTwo;
+        }
+        if (spawnerRadarThree)
+        {
+            return spawnerRadarThree;
+        }
+        if (spawnerRadarFour)
+        {
+            return spawnerRadarFour;
+        }
 
+        return true;
+    }
     public int GetSpawnNumber()
     {
         return numberSpawned;

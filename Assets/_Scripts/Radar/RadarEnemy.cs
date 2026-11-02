@@ -46,7 +46,13 @@ public class RadarEnemy : MonoBehaviour
         enemyOverlap = false;
         overlapThisStep = false;
     }
-
+    private void OnDisable()
+    {
+        inRadarOne = false;
+        inRadarTwo = false;
+        inRadarThree = false;
+        inRadarFour = false;
+    }
     private void Update()
     {
       
@@ -67,6 +73,7 @@ public class RadarEnemy : MonoBehaviour
         enemyOverlap = overlapThisStep;
         overlapThisStep = false;
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -130,6 +137,7 @@ public class RadarEnemy : MonoBehaviour
         rectTransform.SetParent(movePath[currentPoint]);
     }
 
+
     public bool IsOverlapped()
     {
         return enemyOverlap;
@@ -139,6 +147,18 @@ public class RadarEnemy : MonoBehaviour
     {
         spawner = enemySpawner;
         return spawner;
+    }
+    public void ConfigureRadars(bool radarOne, bool radarTwo, bool radarThree, bool radarFour)
+    {
+        inRadarOne = radarOne;
+        inRadarTwo = radarTwo;
+        inRadarThree = radarThree;
+        inRadarFour = radarFour;
+
+        currentPoint = 0;
+        timerCounter = timerCheck;
+        enemyOverlap = false;
+        overlapThisStep = false;
     }
 
 }

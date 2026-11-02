@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private CinemachineBasicMultiChannelPerlin headbob;
+    [SerializeField] private AudioManager audioManager;
 
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 5f;
@@ -56,17 +57,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isMoving)
         {
+            
             Movement();
             
         }
         else
         {
             playerVelocity = Vector3.Lerp(playerVelocity, Vector3.zero, playerFriction * Time.deltaTime);
+            audioManager.GetPlayerSource().Stop();
         }
 
         playerVelocity.y += playerGravity * Time.deltaTime;
         player.Move(playerVelocity);
-         
+        
+
     }
 
     private void Movement()
@@ -119,7 +123,15 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed)
         {
             isMoving = true;
-          
+
+            if (!isCrouching && !isSprinting) audioManager.ActivateWalk();
+
+            if (playerVelocity.magnitude > 0)
+            {
+                audioManager.GetPlayerSource().Play();
+            }
+
+
         }
 
         if (context.canceled)
@@ -135,6 +147,12 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed)
         {
             isSprinting = true;
+            if(!isCrouching) audioManager.ActivateRun();
+
+            if (playerVelocity.magnitude > 0)
+            {
+                audioManager.GetPlayerSource().Play();
+            }
         }
 
         if (context.canceled)
@@ -150,6 +168,13 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed && crouchCounter == 0)
         {
             isCrouching = true;
+            audioManager.ActivateCrouch();
+
+            if (playerVelocity.magnitude > 0)
+            {
+                audioManager.GetPlayerSource().Play();
+            }
+
             player.height = crouchHeight;
             crouchCounter++;
 
@@ -165,6 +190,14 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = false;
             isMoving = true; player.height = playerHeight;
             crouchCounter = 0;
+            audioManager.ActivateWalk();
+
+            if (playerVelocity.magnitude > 0)
+            {
+                audioManager.GetPlayerSource().Play();
+            }
+
+
         }
     }
 }

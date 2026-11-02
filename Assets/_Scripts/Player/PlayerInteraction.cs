@@ -28,6 +28,15 @@ public class PlayerInteraction : MonoBehaviour
     {
         player = GetComponent<PlayerMovement>();
     }
+    private void OnEnable()
+    {
+        interactPrompt.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        interactPrompt.SetActive(false);
+    }
     void Update()
     {
        

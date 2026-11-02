@@ -3,7 +3,7 @@ using UnityEngine.Playables;
 
 public class SleepingArea : MonoBehaviour, IInteractable
 {
-    private bool canSleep = true;
+    public bool canSleep = true;
     public bool isCompleted = false;
     [SerializeField] private PlayableDirector sceneDirector;
     [SerializeField] private PlayableAsset nightTimeline;
