@@ -32,9 +32,11 @@ public class ItemTrigger : MonoBehaviour, IInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision entered");
         if (collision.collider.CompareTag("Ground"))
         {
             rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
         }
     }
 

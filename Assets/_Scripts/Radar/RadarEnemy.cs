@@ -137,6 +137,7 @@ public class RadarEnemy : MonoBehaviour
         
         if (trap.CompareTag("Flare"))
         {
+            Debug.Log("Is stunned");
             StartCoroutine(StunEnemy());
         }
 

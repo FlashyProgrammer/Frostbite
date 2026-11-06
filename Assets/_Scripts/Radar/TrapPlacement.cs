@@ -79,6 +79,7 @@ public class TrapPlacement : MonoBehaviour, IInteractable
                         placedTailsman.SetActive(true);
                         activeTraps.Add(tailsmanRadar);
                         Destroy(currentSlot.itemObject);
+                        inventory.RefreshSelection();
                         currentSlot.Clear();
 
                     }
@@ -100,6 +101,7 @@ public class TrapPlacement : MonoBehaviour, IInteractable
                         flareRadar.SetActive(true);
                         placedFlare.SetActive(true);
                         activeTraps.Add(flareRadar);
+                        inventory.RefreshSelection();
                         Destroy(currentSlot.itemObject);
                         currentSlot.Clear();
 

@@ -143,7 +143,8 @@ public class DialogueManager : MonoBehaviour
         stayTimes.Clear();
         voiceList.Clear();
         charNames.Clear();
-      
+        StopAllCoroutines();
+
     }
 
     public void PressNext(InputAction.CallbackContext context)

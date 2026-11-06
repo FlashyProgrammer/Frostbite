@@ -45,11 +45,11 @@ public class InventorySystem : MonoBehaviour
 
     public bool AddItem(Item itemToAdd, int amount, GameObject itemObject)
     {
+        itemObject.GetComponent<Collider>().enabled = false;
         if (itemToAdd == null || itemObject == null || amount <= 0) return false;
 
         int maxPerSlot = Mathf.Max(1, itemToAdd.canStack ? itemToAdd.stackLimit : itemToAdd.baseQuantity);
 
-        
         if (!CanFit(itemToAdd, amount, maxPerSlot))
         {
             Debug.LogWarning("Inventory full! Could not fit: " + amount);
@@ -179,6 +179,7 @@ public class InventorySystem : MonoBehaviour
         if (!context.performed) return;
 
         InventorySlot slot = slots[currentIndex];
+        slot.itemObject.GetComponent<Collider>().enabled = true;
         if (slot.item == null || slot.itemObject == null) return;
 
         RemoveItem(slot.itemObject);

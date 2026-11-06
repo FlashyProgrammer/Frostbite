@@ -90,14 +90,15 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
     public void CraftItem()
     {
+        if (!canCraft)
+        {
+             currentRecipe = null;
+            Debug.Log("Can't craft");
+            return;
+        }
+
         if (currentRecipe != null)
         {
-            if (!canCraft)
-            {
-                Debug.Log("Can't craft");
-                return;
-            }
-
             var currentInventory = playerInventory.GetCurrentInventory();
 
             foreach (var ingredient in currentRecipe.recipe)
