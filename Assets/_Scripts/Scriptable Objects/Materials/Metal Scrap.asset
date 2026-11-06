@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Metal Scrap
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Metal Scrap
-  itemDescription: 
-  itemIcon: {fileID: 21300000, guid: 1e8b83acee303c642b96205c8ea600a2, type: 3}
-  itemObject: {fileID: 6174646263663466836, guid: daf2b95be227b024a89e8aefeca3ed1a, type: 3}
+  itemDescription: Metal Scrap.
+  itemIcon: {fileID: 21300000, guid: 7320a1b8ee874534cae67e60600e55ad, type: 3}
+  itemObject: {fileID: 8512693948114522977, guid: 9f2fd779d2fb66546b12093bd7e47b78, type: 3}
   canStack: 1
   baseQuantity: 1
   stackLimit: 64

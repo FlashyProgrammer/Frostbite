@@ -14,6 +14,7 @@ public class Radar : MonoBehaviour, IInteractable
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private float spawnTimer;
     [SerializeField] private TrapPlacement trapPlacement;
+    [SerializeField] private TrapPlacement trapPlacementFlare;
 
 
     [Header("Player Misc")]
@@ -71,7 +72,21 @@ public class Radar : MonoBehaviour, IInteractable
                     }
                 }
             }
+            if (trapPlacementFlare != null)
+            {
+                if (trapPlacementFlare.GetActiveTraps() != null)
+                {
+                    foreach (var activeTrap in trapPlacementFlare.GetActiveTraps())
+                    {
+                        if (activeTrap != null)
+                        {
+                            activeTrap.GetComponent<Image>().enabled = false;
+                        }
+                    }
+                }
+            }
            
+
 
         }
 
@@ -94,9 +109,24 @@ public class Radar : MonoBehaviour, IInteractable
                     {
                         activeTrap.GetComponent<Image>().enabled = true;
                     }
-                    
+
                 }
             }
+            if (trapPlacementFlare != null)
+            {
+                if (trapPlacementFlare.GetActiveTraps() != null)
+                {
+                    foreach (var activeTrap in trapPlacementFlare.GetActiveTraps())
+                    {
+                        if (activeTrap != null)
+                        {
+                            activeTrap.GetComponent<Image>().enabled = true;
+                        }
+
+                    }
+                }
+            }
+          
 
         }
 

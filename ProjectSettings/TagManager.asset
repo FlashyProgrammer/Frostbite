@@ -7,7 +7,6 @@ TagManager:
   - Enemy
   - Trap
   - Item
-  - Tailsman
   - Generator
   - Marker
   - Area
@@ -16,6 +15,8 @@ TagManager:
   - Obstacle
   - Ground
   - Stalker
+  - Talisman
+  - Flare
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Building
   - Doors
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 

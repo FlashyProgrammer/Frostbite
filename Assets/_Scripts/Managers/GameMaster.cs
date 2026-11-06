@@ -10,8 +10,10 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject winScreenUI;
     [SerializeField] private GameObject craftingScreen;
+    [SerializeField] private GameObject completeScreen;
 
     [Header("Game Settings")]
+    [SerializeField] private GameObject playerGFX;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerInteraction playerInteraction;
     [SerializeField] private CameraMove mouseLook;
@@ -47,7 +49,6 @@ public class GameMaster : MonoBehaviour
     }
     public void DayOver()
     {
-
         sleepingArea.isCompleted = true;
         sleepingArea.canSleep = true;
         foreach (var spawner in enemySpawners)
@@ -60,7 +61,6 @@ public class GameMaster : MonoBehaviour
             spawner.activeEnemies.Clear();
             spawner.enabled = false;
         }
-
 
     }
     public void RestartButton()
@@ -92,13 +92,12 @@ public class GameMaster : MonoBehaviour
 
         if (context.canceled && pauseCounter == 1)
         {
-           
             pauseCounter++;
         }
 
         if(context.performed && pauseCounter == 2)
         {
-          
+
             pauseMenuUI.SetActive(false);
             playerMovement.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
@@ -109,8 +108,25 @@ public class GameMaster : MonoBehaviour
 
     }
 
+    public void NextDay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void CompleteMenu()
+    {
+        FreezePlayer();
+        completeScreen.SetActive(true);
+
+    }
+    public void RemoveComplete()
+    {
+        UnfreezePlayer();
+        completeScreen.SetActive(false);
+    }
     public void FreezePlayer()
     {
+        playerGFX.SetActive(false);
         playerMovement.enabled = false;
         playerInteraction.enabled = false;
         Cursor.lockState = CursorLockMode.None;
@@ -118,6 +134,7 @@ public class GameMaster : MonoBehaviour
     }
     public void UnfreezePlayer()
     {
+        playerGFX.SetActive(true);
         playerMovement.enabled = true;
         playerInteraction.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;

@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         playerVelocity = Vector3.zero;
+
+        if(audioManager.GetPlayerSource() != null) audioManager.GetPlayerSource().Stop();
         inputs.Disable();
     }
 
@@ -126,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isCrouching && !isSprinting) audioManager.ActivateWalk();
 
-            if (playerVelocity.magnitude > 0)
+            if (playerVelocity.magnitude > 0 && gameObject.activeInHierarchy)
             {
                 audioManager.GetPlayerSource().Play();
             }
@@ -149,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
             isSprinting = true;
             if(!isCrouching) audioManager.ActivateRun();
 
-            if (playerVelocity.magnitude > 0)
+            if (playerVelocity.magnitude > 0 && gameObject.activeInHierarchy)
             {
                 audioManager.GetPlayerSource().Play();
             }
@@ -170,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = true;
             audioManager.ActivateCrouch();
 
-            if (playerVelocity.magnitude > 0)
+            if (playerVelocity.magnitude > 0 && gameObject.activeInHierarchy)
             {
                 audioManager.GetPlayerSource().Play();
             }
@@ -192,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
             crouchCounter = 0;
             audioManager.ActivateWalk();
 
-            if (playerVelocity.magnitude > 0)
+            if (playerVelocity.magnitude > 0 && gameObject.activeInHierarchy)
             {
                 audioManager.GetPlayerSource().Play();
             }

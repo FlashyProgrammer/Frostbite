@@ -14,6 +14,7 @@ public class CraftingSystem : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource craftSound;
 
+    public ItemRecipes currentRecipe;
     private bool canCraft;
 
     private void Awake()
@@ -33,13 +34,13 @@ public class CraftingSystem : MonoBehaviour
 public void CheckCraft(ItemRecipes itemRecipes)
     {
         canCraft = true;
+        currentRecipe = itemRecipes;
         
         var currentInventory = playerInventory.GetCurrentInventory();
 
         for (int index = 0; index < itemRecipes.recipe.Count; index++)
         {
             var ingredient = itemRecipes.recipe[index];
-
             // Checks overall quantity amount of qualified ingredients owned
             int amountOwned = 0;
 
@@ -87,49 +88,52 @@ public void CheckCraft(ItemRecipes itemRecipes)
         descriptionText.text = itemRecipes.output.itemDescription;
     }
 
-    public void CraftItem(ItemRecipes recipe)
+    public void CraftItem()
     {
-        
-        if (!canCraft)
+        if (currentRecipe != null)
         {
-            Debug.Log("Can't craft");
-            return;
-        }
-
-        var currentInventory = playerInventory.GetCurrentInventory();
-
-        foreach (var ingredient in recipe.recipe)
-        {
-            int amountToRemove = ingredient.quantity;
-
-            foreach (var slot in currentInventory)
+            if (!canCraft)
             {
-                if (amountToRemove <= 0)
-                {
-                    break;
-                }
+                Debug.Log("Can't craft");
+                return;
+            }
 
-                if (slot.item != ingredient.item)
-                {
-                    continue;
-                }
+            var currentInventory = playerInventory.GetCurrentInventory();
 
-                int amountFromThisSlot = Mathf.Min(slot.quantity, amountToRemove);
-                slot.quantity -= amountFromThisSlot;
-                amountToRemove -= amountFromThisSlot;
-                if (slot.quantity <= 0)
+            foreach (var ingredient in currentRecipe.recipe)
+            {
+                int amountToRemove = ingredient.quantity;
+
+                foreach (var slot in currentInventory)
                 {
-                    Destroy(slot.itemObject);
-                    slot.Clear();
+                    if (amountToRemove <= 0)
+                    {
+                        break;
+                    }
+
+                    if (slot.item != ingredient.item)
+                    {
+                        continue;
+                    }
+
+                    int amountFromThisSlot = Mathf.Min(slot.quantity, amountToRemove);
+                    slot.quantity -= amountFromThisSlot;
+                    amountToRemove -= amountFromThisSlot;
+                    if (slot.quantity <= 0)
+                    {
+                        Destroy(slot.itemObject);
+                        slot.Clear();
+                    }
                 }
             }
-        }
 
-        var itemObject = Instantiate(recipe.itemObject);
-        playerInventory.AddItem(recipe.output, recipe.output.baseQuantity, itemObject);
-        playerInventory.RefreshSelection();
-        craftSound.Play();
-        CheckCraft(recipe);
+            var itemObject = Instantiate(currentRecipe.itemObject);
+            playerInventory.AddItem(currentRecipe.output, currentRecipe.output.baseQuantity, itemObject);
+            playerInventory.RefreshSelection();
+            craftSound.Play();
+            CheckCraft(currentRecipe);
+        }
+        
     }
 
 }

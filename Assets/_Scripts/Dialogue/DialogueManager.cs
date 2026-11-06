@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -138,14 +139,16 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueText.text = "";
         dialogueTextTwo.text = dialogueText.text;
-        dialogueText.gameObject.SetActive(false);
-        dialogueTextTwo.gameObject.SetActive(false);
-        StopAllCoroutines();
+        lineList.Clear();
+        stayTimes.Clear();
+        voiceList.Clear();
+        charNames.Clear();
+      
     }
 
     public void PressNext(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !string.IsNullOrEmpty(dialogueText.text) || !string.IsNullOrEmpty(dialogueTextTwo.text))
         {
             EndDialogue();
             director.time = director.duration;
@@ -153,5 +156,5 @@ public class DialogueManager : MonoBehaviour
             director.Stop();
         }
     }
-    
+
 }

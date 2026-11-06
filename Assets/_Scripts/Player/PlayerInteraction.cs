@@ -30,12 +30,16 @@ public class PlayerInteraction : MonoBehaviour
     }
     private void OnEnable()
     {
-        interactPrompt.SetActive(true);
+        if (currentInteractable != null)
+        {
+            if (interactPrompt != null) interactPrompt.SetActive(true);
+        }
+
     }
 
     private void OnDisable()
     {
-        interactPrompt.SetActive(false);
+        if (interactPrompt != null) interactPrompt.SetActive(false);
     }
     void Update()
     {

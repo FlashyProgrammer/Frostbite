@@ -31,6 +31,10 @@ public class Rover : MonoBehaviour
 
         foreach (var item in playerInventory.GetCurrentInventory())
         {
+            if (item.itemObject != null)
+            {
+                item.itemObject.SetActive(false);
+            }
             playerInventory.RemoveItem(item.itemObject);
         }
 

@@ -131,6 +131,7 @@ MonoBehaviour:
   isHuman: 1
   timerCheck: 40
   moveBackChance: 30
+  stunTime: 30
   movePath: []
   inRadarOne: 0
   inRadarTwo: 0

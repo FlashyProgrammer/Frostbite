@@ -39,7 +39,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (!buttomDialogue.activeInHierarchy)
+        if (string.IsNullOrEmpty(buttomDialogue.GetComponent<TextMeshProUGUI>().text))
         {
             for (int i = 0; i < characterDialogues.Count; i++)
             {

@@ -5,11 +5,22 @@ using UnityEngine.UI;
 
 public class TrapPlacement : MonoBehaviour, IInteractable
 {
+    [Header("Type")]
+    [SerializeField] private bool isTalisman;
+    [SerializeField] private bool isBearTrap;
+    [SerializeField] private bool isFlare;
 
     [Header("Tailsman")]
     [SerializeField] private GameObject tailsmanRadar;
     [SerializeField] private GameObject placedTailsman;
 
+    [Header("Flare")]
+    [SerializeField] private GameObject flareRadar;
+    [SerializeField] private GameObject placedFlare;
+
+    [Header("Bear Trap")]
+    [SerializeField] private GameObject bearTrapRadar;
+    [SerializeField] private GameObject placedBearTrap;
 
     [Header("Inventory")]
     [SerializeField] private InventorySystem inventory;
@@ -23,12 +34,25 @@ public class TrapPlacement : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (tailsmanRadar.activeInHierarchy) placedTailsman.SetActive(true);
-
-        else
+        if (isTalisman)
         {
-            placedTailsman.SetActive(false);
+            if (tailsmanRadar.activeInHierarchy) placedTailsman.SetActive(true);
+
+            else
+            {
+                placedTailsman.SetActive(false);
+            }
         }
+        if (isFlare)
+        {
+            if (flareRadar.activeInHierarchy) placedFlare.SetActive(true);
+
+            else
+            {
+                placedFlare.SetActive(false);
+            }
+        }
+
     }
     public string InteractPrompt => gameObject.name;
 
@@ -40,26 +64,52 @@ public class TrapPlacement : MonoBehaviour, IInteractable
 
     public void ActivateTrap()
     {
-        if (!placedTailsman.activeInHierarchy)
+        if (isTalisman)
         {
-            var currentSlot = inventory.GetSlot();
-
-            if (currentSlot.item != null)
+            if (!placedTailsman.activeInHierarchy)
             {
-                if (currentSlot.item.itemName == "Tailsman")
-                {
+                var currentSlot = inventory.GetSlot();
 
-                    tailsmanRadar.SetActive(true);
-                    placedTailsman.SetActive(true);
-                    activeTraps.Add(tailsmanRadar);
-                    Destroy(currentSlot.itemObject);
-                    currentSlot.Clear();
+                if (currentSlot.item != null)
+                {
+                    if (currentSlot.item.itemName == "Tailsman")
+                    {
+
+                        tailsmanRadar.SetActive(true);
+                        placedTailsman.SetActive(true);
+                        activeTraps.Add(tailsmanRadar);
+                        Destroy(currentSlot.itemObject);
+                        currentSlot.Clear();
+
+                    }
 
                 }
-
             }
         }
-       
+        if (isFlare)
+        {
+            if (!placedFlare.activeInHierarchy)
+            {
+                var currentSlot = inventory.GetSlot();
+
+                if (currentSlot.item != null)
+                {
+                    if (currentSlot.item.itemName == "Flare")
+                    {
+
+                        flareRadar.SetActive(true);
+                        placedFlare.SetActive(true);
+                        activeTraps.Add(flareRadar);
+                        Destroy(currentSlot.itemObject);
+                        currentSlot.Clear();
+
+                    }
+
+                }
+            }
+        }
+
+
     }
 
     public List<GameObject> GetActiveTraps() 

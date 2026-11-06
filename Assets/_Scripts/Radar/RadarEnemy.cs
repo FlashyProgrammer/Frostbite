@@ -13,6 +13,7 @@ public class RadarEnemy : MonoBehaviour
     [SerializeField] private float timerCheck;
     [Range(1, 100)]
     [SerializeField] private float moveBackChance;
+    [SerializeField] private float stunTime;
 
     [Header("Movement Ring Points")]
     public List<RectTransform> movePath;
@@ -23,7 +24,7 @@ public class RadarEnemy : MonoBehaviour
     public bool inRadarThree;
     public bool inRadarFour;
 
-  
+
     private EnemySpawner spawner;
     private RectTransform rectTransform;
     private Image enemyImage;
@@ -31,6 +32,7 @@ public class RadarEnemy : MonoBehaviour
     private float timerCounter;
     private bool enemyOverlap;
     private bool overlapThisStep;
+    private bool isStunned;
 
     private void Awake()
     {
@@ -55,14 +57,14 @@ public class RadarEnemy : MonoBehaviour
     }
     private void Update()
     {
-      
         if (movePath == null || movePath.Count == 0) return;
 
-        timerCounter -= Time.deltaTime;
+        if(!isStunned) timerCounter -= Time.deltaTime;
+        
         if (timerCounter > 0) return;
 
         timerCounter = timerCheck;
-      
+
         bool moveBack = Random.value <= moveBackChance / 100f;
         currentPoint = Mathf.Clamp(currentPoint + (moveBack ? -1 : 1), 0, movePath.Count - 1);
         MoveToCurrentPoint();
@@ -114,21 +116,30 @@ public class RadarEnemy : MonoBehaviour
 
     private void TriggerTrap(Collider2D trap)
     {
-        if (spawner != null)
+        if (trap.CompareTag("Talisman"))
         {
-            spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
+            if (spawner != null)
+            {
+                spawner.SetSpawnNumber(spawner.GetSpawnNumber() - 1);
+            }
+
+            trap.gameObject.SetActive(false);
+
+            currentPoint = 0;
+            if (movePath != null && movePath.Count > 0)
+            {
+                MoveToCurrentPoint();
+            }
+
+            enemyImage.enabled = false;
+            gameObject.SetActive(false);
+        }
+        
+        if (trap.CompareTag("Flare"))
+        {
+            StartCoroutine(StunEnemy());
         }
 
-        trap.gameObject.SetActive(false);
-
-        currentPoint = 0;
-        if (movePath != null && movePath.Count > 0)
-        {
-            MoveToCurrentPoint();
-        }
-
-        enemyImage.enabled = false;
-        gameObject.SetActive(false);
     }
 
     private void MoveToCurrentPoint()
@@ -159,6 +170,18 @@ public class RadarEnemy : MonoBehaviour
         timerCounter = timerCheck;
         enemyOverlap = false;
         overlapThisStep = false;
+    }
+
+    IEnumerator StunEnemy()
+    {
+        enemyImage.color = Color.blue;
+        currentPoint--;
+        timerCounter = timerCheck;
+        enemyOverlap = false;
+        overlapThisStep = false;
+        yield return new WaitForSeconds(stunTime);
+        isStunned = false; 
+
     }
 
 }
