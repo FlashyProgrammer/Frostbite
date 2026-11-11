@@ -14,7 +14,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private AudioSource alermSound;
 
 
-    private bool lightsOff;
+    public bool lightsOff;
     private readonly HashSet<GameObject> enemiesInside = new HashSet<GameObject>();
     private readonly List<GameObject> toRemove = new List<GameObject>();
     private readonly List<Coroutine> flickerRoutines = new List<Coroutine>();
@@ -37,7 +37,7 @@ public class EventManager : MonoBehaviour
             RemoveEnemy(enemy);
         }
 
-        if (lightsOff && alermSound != null)
+        if (lightsOff)
         {
             alermSound.Stop();
         }

@@ -9,6 +9,7 @@ public class Rover : MonoBehaviour
     [SerializeField] private GameObject playerFacility;
     [SerializeField] private GameObject playerRover;
     [SerializeField] private float roverCooldownTime;
+    [SerializeField] private float invincibleTime;
     [SerializeField] private Light screenLight;
     [SerializeField] private Light screenLightTwo;
 
@@ -54,8 +55,9 @@ public class Rover : MonoBehaviour
             playerRover.SetActive(true);
             volumeRover.weight = 1.0f;
             canActivate = false;
+            StartCoroutine(InvincibleTime());
         }
-     
+
 
     }
 
@@ -82,5 +84,12 @@ public class Rover : MonoBehaviour
         screenLight.color = currentColor;
         screenLightTwo.color = currentColor;
         isDestroyed = false;
+    }
+
+    private IEnumerator InvincibleTime()
+    {
+        playerRover.layer = LayerMask.NameToLayer("Default");
+        yield return new WaitForSeconds(invincibleTime);
+        playerRover.layer = LayerMask.NameToLayer("Drone");
     }
 }

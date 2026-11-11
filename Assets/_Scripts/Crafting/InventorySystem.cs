@@ -179,8 +179,8 @@ public class InventorySystem : MonoBehaviour
         if (!context.performed) return;
 
         InventorySlot slot = slots[currentIndex];
-        slot.itemObject.GetComponent<Collider>().enabled = true;
         if (slot.item == null || slot.itemObject == null) return;
+        slot.itemObject.GetComponent<Collider>().enabled = true;
 
         RemoveItem(slot.itemObject);
     }
@@ -247,6 +247,7 @@ public class InventorySystem : MonoBehaviour
 
     private void ChangeSlot(int step)
     {
+       
         if (slots.Count == 0) return;
 
         int target = currentIndex + step;

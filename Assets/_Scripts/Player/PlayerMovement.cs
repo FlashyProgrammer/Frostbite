@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintHeadbobAmount;
     [SerializeField] private float crouchHeadbobAmount;
 
-
     private void Awake()
     {
         inputs = new PlayerControls();

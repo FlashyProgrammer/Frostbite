@@ -51,7 +51,7 @@ public class ItemSpawner : MonoBehaviour, IInteractable
 
         }
 
-        if (!hasInteracted)
+        if (!hasInteracted && lockerDialogue != null)
         {
             lockerDialogue.enabled = true;
         }

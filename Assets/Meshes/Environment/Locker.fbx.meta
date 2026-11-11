@@ -3,7 +3,12 @@ guid: d14fbb65492c31f4bb9e63547dec208d
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerTexture
+    second: {fileID: 2800000, guid: f9472eaf73f62e54282edef2677b1121, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

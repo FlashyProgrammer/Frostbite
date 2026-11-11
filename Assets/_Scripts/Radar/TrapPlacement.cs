@@ -13,10 +13,12 @@ public class TrapPlacement : MonoBehaviour, IInteractable
     [Header("Tailsman")]
     [SerializeField] private GameObject tailsmanRadar;
     [SerializeField] private GameObject placedTailsman;
+    [SerializeField] private GameObject talismanIndicator;
 
     [Header("Flare")]
     [SerializeField] private GameObject flareRadar;
     [SerializeField] private GameObject placedFlare;
+    [SerializeField] private GameObject flareIndicator;
 
     [Header("Bear Trap")]
     [SerializeField] private GameObject bearTrapRadar;
@@ -36,20 +38,33 @@ public class TrapPlacement : MonoBehaviour, IInteractable
     {
         if (isTalisman)
         {
-            if (tailsmanRadar.activeInHierarchy) placedTailsman.SetActive(true);
+            if (tailsmanRadar.activeInHierarchy)
+            {
+                placedTailsman.SetActive(true);
+                talismanIndicator.SetActive(false);
+
+            }
 
             else
             {
                 placedTailsman.SetActive(false);
+                talismanIndicator.SetActive(true);
             }
         }
         if (isFlare)
         {
-            if (flareRadar.activeInHierarchy) placedFlare.SetActive(true);
+            if (flareRadar.activeInHierarchy)
+            {
+                placedFlare.SetActive(true);
+                flareIndicator.SetActive(false);
+
+            }
+
 
             else
             {
                 placedFlare.SetActive(false);
+                flareIndicator.SetActive(true);
             }
         }
 
@@ -86,6 +101,7 @@ public class TrapPlacement : MonoBehaviour, IInteractable
 
                 }
             }
+            
         }
         if (isFlare)
         {

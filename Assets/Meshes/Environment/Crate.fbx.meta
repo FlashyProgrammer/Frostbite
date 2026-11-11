@@ -3,7 +3,12 @@ guid: 60f05aaa891ce434f89966d1885cc561
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Crate Texture
+    second: {fileID: 2800000, guid: d5959718c2bda7d4fa69760f1f30d2a6, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

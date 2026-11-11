@@ -24,10 +24,12 @@ public class RadarEnemy : MonoBehaviour
     public bool inRadarThree;
     public bool inRadarFour;
 
-
     private EnemySpawner spawner;
     private RectTransform rectTransform;
     private Image enemyImage;
+    private Animator animator;
+    private Color defaultColor;
+    private Coroutine stunRoutine;
     private int currentPoint;
     private float timerCounter;
     private bool enemyOverlap;
@@ -38,6 +40,8 @@ public class RadarEnemy : MonoBehaviour
     {
         enemyImage = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
+        animator = GetComponent<Animator>();
+        defaultColor = enemyImage.color;
         currentPoint = 0;
     }
 
@@ -47,20 +51,25 @@ public class RadarEnemy : MonoBehaviour
         timerCounter = timerCheck;
         enemyOverlap = false;
         overlapThisStep = false;
+        ResetStun();
     }
+
     private void OnDisable()
     {
+        currentPoint = 0;
         inRadarOne = false;
         inRadarTwo = false;
         inRadarThree = false;
         inRadarFour = false;
+        ResetStun();
     }
+
     private void Update()
     {
+        if (isStunned) return;
         if (movePath == null || movePath.Count == 0) return;
 
-        if(!isStunned) timerCounter -= Time.deltaTime;
-        
+        timerCounter -= Time.deltaTime;
         if (timerCounter > 0) return;
 
         timerCounter = timerCheck;
@@ -76,20 +85,22 @@ public class RadarEnemy : MonoBehaviour
         overlapThisStep = false;
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         HandleTrigger(collision);
     }
 
-
     private void OnTriggerStay2D(Collider2D collision)
     {
+  
         HandleTrigger(collision);
     }
 
     private void HandleTrigger(Collider2D collision)
     {
+        
+        if (!gameObject.activeInHierarchy) return;
+
         if (collision.CompareTag("Enemy"))
         {
             overlapThisStep = true;
@@ -133,14 +144,64 @@ public class RadarEnemy : MonoBehaviour
 
             enemyImage.enabled = false;
             gameObject.SetActive(false);
-        }
-        
-        if (trap.CompareTag("Flare"))
-        {
-            Debug.Log("Is stunned");
-            StartCoroutine(StunEnemy());
+            return;
         }
 
+        if (trap.CompareTag("Flare"))
+        {
+            trap.gameObject.SetActive(false);
+            Stun();
+        }
+    }
+
+   
+    private void Stun()
+    {
+        if (stunRoutine != null) StopCoroutine(stunRoutine);
+        stunRoutine = StartCoroutine(StunEnemy());
+    }
+
+    private IEnumerator StunEnemy()
+    {
+        isStunned = true; 
+        PlayAnimation("Freeze");
+        enemyImage.color = Color.blue;
+
+        currentPoint = Mathf.Max(0, currentPoint - 1);
+
+        if (movePath != null && movePath.Count > 0)
+        {
+            MoveToCurrentPoint();
+        }
+
+        timerCounter = timerCheck;
+        enemyOverlap = false;
+        overlapThisStep = false;
+
+        yield return new WaitForSeconds(stunTime);
+
+        ResetStun();
+        PlayAnimation("Pulse");
+    }
+
+    
+    private void ResetStun()
+    {
+        isStunned = false;
+        stunRoutine = null;
+     
+        if (enemyImage != null)
+        {
+            enemyImage.color = defaultColor;
+        }
+    }
+
+    private void PlayAnimation(string state)
+    {
+        if (animator != null)
+        {
+            animator.Play(state);
+        }
     }
 
     private void MoveToCurrentPoint()
@@ -148,7 +209,6 @@ public class RadarEnemy : MonoBehaviour
         rectTransform.position = movePath[currentPoint].position;
         rectTransform.SetParent(movePath[currentPoint]);
     }
-
 
     public bool IsOverlapped()
     {
@@ -160,6 +220,7 @@ public class RadarEnemy : MonoBehaviour
         spawner = enemySpawner;
         return spawner;
     }
+
     public void ConfigureRadars(bool radarOne, bool radarTwo, bool radarThree, bool radarFour)
     {
         inRadarOne = radarOne;
@@ -171,18 +232,6 @@ public class RadarEnemy : MonoBehaviour
         timerCounter = timerCheck;
         enemyOverlap = false;
         overlapThisStep = false;
+        ResetStun();
     }
-
-    IEnumerator StunEnemy()
-    {
-        enemyImage.color = Color.blue;
-        currentPoint--;
-        timerCounter = timerCheck;
-        enemyOverlap = false;
-        overlapThisStep = false;
-        yield return new WaitForSeconds(stunTime);
-        isStunned = false; 
-
-    }
-
 }

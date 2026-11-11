@@ -1,5 +1,6 @@
 
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
@@ -9,10 +10,13 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Camera playerCam;
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private LayerMask interactionLayers;
-    [SerializeField] private float rayDistance;
 
     [SerializeField] private Transform followPoint;
     [SerializeField] private Transform dropPoint;
+
+    [Header("Collision Parameters")]
+    [SerializeField] private Transform playerEyes;
+    [SerializeField] private float sphereRadius;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI interactText;
@@ -23,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InventorySystem inventory;
     private GameObject currentInteractable;
     private PlayerMovement player;
-
+    private Collider[] hitBuffer = new Collider[20];
     private void Awake()
     {
         player = GetComponent<PlayerMovement>();
@@ -43,26 +47,25 @@ public class PlayerInteraction : MonoBehaviour
     }
     void Update()
     {
-       
+
         RayCasting();
     }
 
     private void RayCasting()
     {
-        Ray camRay = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        if (Physics.Raycast(camRay, out hit, rayDistance, interactionLayers))
+        int hitCount = Physics.OverlapCapsuleNonAlloc(Camera.main.transform.position, playerEyes.position, sphereRadius, hitBuffer, interactionLayers);
+        if (hitCount != 0)
         {
-            currentInteractable = hit.collider.gameObject;
+            for (int i = 0; i < hitCount; i++)
+            {
+                currentInteractable = hitBuffer[i].gameObject;
+            }
         }
 
         else
         {
             currentInteractable = null;
         }
-
-        Debug.DrawRay(camRay.origin, camRay.direction * rayDistance, Color.yellow);
 
         if (currentInteractable != null && player.enabled)
         {
@@ -71,7 +74,7 @@ public class PlayerInteraction : MonoBehaviour
             if (currentInteractable.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
                 interactText.text = interactable.InteractPrompt;
-                
+
             }
         }
         else
@@ -88,7 +91,7 @@ public class PlayerInteraction : MonoBehaviour
             interactText.text = interactable.InteractPrompt;
             interactable.Interact();
         }
-       
+
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -99,5 +102,6 @@ public class PlayerInteraction : MonoBehaviour
 
         }
     }
+
 
 }

@@ -83,6 +83,7 @@ public class GameMaster : MonoBehaviour
         if (context.performed && pauseCounter == 0 && playerMovement.enabled)
         {
             pauseMenuUI.SetActive(true);
+            playerInteraction.enabled = false;
             playerMovement.enabled = false;
             Cursor.lockState = CursorLockMode.None;
             pauseCounter++;
@@ -100,6 +101,7 @@ public class GameMaster : MonoBehaviour
 
             pauseMenuUI.SetActive(false);
             playerMovement.enabled = true;
+            playerInteraction.enabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1f;
             AudioListener.pause = false;

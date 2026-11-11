@@ -37,6 +37,8 @@ public class Minigame : MonoBehaviour
     [SerializeField] private PlayerMovement roverMovement;
     [SerializeField] private CameraMove mouseLook;
 
+    [SerializeField] private CameraMove roverMouseLook;
+
 
     public Action reward;
     private float randomSpeed;
@@ -165,9 +167,11 @@ public class Minigame : MonoBehaviour
     {
         interaction.enabled = false;
         playerMovement.enabled = false;
-        if(roverMovement != null)
+        roverMovement.enabled = false;
+        if (roverMovement != null)
         {
             roverMovement.enabled = false;
+            roverMouseLook.enabled = false;
         }
         mouseLook.enabled = false;
     }
@@ -182,9 +186,12 @@ public class Minigame : MonoBehaviour
         meterBar.value = 0;
         interaction.enabled = true;
         playerMovement.enabled = true;
+        roverMovement.enabled = true;
+       
         if (roverMovement != null)
         {
             roverMovement.enabled = true;
+            roverMouseLook.enabled = true;
         }
         mouseLook.enabled = true;
         marker.gameObject.GetComponent<Marker>().canCheck = false;

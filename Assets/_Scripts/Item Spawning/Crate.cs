@@ -75,7 +75,7 @@ public class Crate : MonoBehaviour, IInteractable
             {
                 var currentItem = Instantiate(itemsToSpawn[randomIndex].itemObject, spawnPosition.position,
                     itemsToSpawn[randomIndex].itemObject.transform.rotation);
-
+                inventorySystem.RefreshSelection();
                 inventorySystem.AddItem(itemsToSpawn[randomIndex], itemsToSpawn[randomIndex].baseQuantity, currentItem);
                 itemsToSpawn.RemoveAt(randomIndex);
             }

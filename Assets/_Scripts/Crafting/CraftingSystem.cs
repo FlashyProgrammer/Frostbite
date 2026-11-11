@@ -10,6 +10,7 @@ public class CraftingSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private List<Image> ingredientIcon;
     [SerializeField] private List<Image> materialsIcon;
+    [SerializeField] private List<TextMeshProUGUI> quantityTexts;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [Header("Audio")]
     [SerializeField] private AudioSource craftSound;
@@ -29,9 +30,14 @@ public class CraftingSystem : MonoBehaviour
             matIcon.enabled = false;
         }
         descriptionText.enabled = false;
+
+        foreach (var text in quantityTexts)
+        {
+            text.enabled = false;
+        }
     }
 
-public void CheckCraft(ItemRecipes itemRecipes)
+    public void CheckCraft(ItemRecipes itemRecipes)
     {
         canCraft = true;
         currentRecipe = itemRecipes;
@@ -72,6 +78,12 @@ public void CheckCraft(ItemRecipes itemRecipes)
                 materialsIcon[index].enabled = true;
                 materialsIcon[index].sprite = ingredient.item.itemIcon;
             }
+
+            if (index < quantityTexts.Count)
+            {
+                quantityTexts[index].enabled = true;
+                quantityTexts[index].text = ingredient.quantity.ToString(); 
+            }
         }
 
         for (int i = itemRecipes.recipe.Count; i < ingredientIcon.Count; i++)
@@ -82,6 +94,11 @@ public void CheckCraft(ItemRecipes itemRecipes)
         for (int i = itemRecipes.recipe.Count; i < materialsIcon.Count; i++)
         {
             materialsIcon[i].enabled = false;
+        }
+
+        for (int i = itemRecipes.recipe.Count; i < quantityTexts.Count; i++)
+        {
+            quantityTexts[i].enabled = false;
         }
 
         descriptionText.enabled = true;
@@ -130,7 +147,6 @@ public void CheckCraft(ItemRecipes itemRecipes)
 
             var itemObject = Instantiate(currentRecipe.itemObject);
             playerInventory.AddItem(currentRecipe.output, currentRecipe.output.baseQuantity, itemObject);
-            playerInventory.RefreshSelection();
             craftSound.Play();
             CheckCraft(currentRecipe);
         }
