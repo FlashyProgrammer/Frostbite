@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
+  m_Name: Rover
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  charLines:
+  - charName: 404
+    line: "Sylvia, what\u2019s this over here? "
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: "That\u2019s a rover. "
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: 404
+    line: 'Can I use it? '
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: 'Yes, you can. '
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: "You can\u2019t go outside, but the rover can, so you can gather more materials.  "
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: 404
+    line: "It\u2019s like a toy car! "
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: "Yeah\u2026something like that\u2026 "
+    lineStayTime: 3
+    clip: {fileID: 0}

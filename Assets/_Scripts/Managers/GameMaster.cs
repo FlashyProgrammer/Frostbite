@@ -2,6 +2,9 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
+using UnityEngine.Rendering;
 
 public class GameMaster : MonoBehaviour
 {
@@ -19,6 +22,9 @@ public class GameMaster : MonoBehaviour
     [SerializeField] private CameraMove mouseLook;
     [SerializeField] private SleepingArea sleepingArea;
     [SerializeField] private List<EnemySpawner> enemySpawners;
+
+    [Header("Cut scenes")]
+    [SerializeField] private TimelineAsset deathCutscene;
     private int pauseCounter = 0;
 
 
@@ -41,10 +47,23 @@ public class GameMaster : MonoBehaviour
     public void GameOver()
     {
         gameOverUI.SetActive(true);
-        playerMovement.enabled = false;
+        FreezePlayer();
         Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0f;
-        AudioListener.pause = true;
+        foreach (var spawner in enemySpawners)
+        {
+            foreach (var enemy in spawner.activeEnemies)
+            {
+                enemy.SetActive(false);
+            }
+
+            spawner.activeEnemies.Clear();
+            spawner.enabled = false;
+        }
+        if (TryGetComponent<PlayableDirector>(out PlayableDirector playableDirector))
+        {
+            playableDirector.playableAsset = deathCutscene;
+            playableDirector.Play();
+        }
 
     }
     public void DayOver()
@@ -96,7 +115,7 @@ public class GameMaster : MonoBehaviour
             pauseCounter++;
         }
 
-        if(context.performed && pauseCounter == 2)
+        if (context.performed && pauseCounter == 2)
         {
 
             pauseMenuUI.SetActive(false);
@@ -141,5 +160,10 @@ public class GameMaster : MonoBehaviour
         playerInteraction.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         mouseLook.enabled = true;
+    }
+
+    public void StopAudio()
+    {
+        AudioListener.pause = true;
     }
 }

@@ -18,18 +18,46 @@ MonoBehaviour:
     lineStayTime: 3
     clip: {fileID: 8300000, guid: 4992706f80292e248a5bc68294db3028, type: 3}
   - charName: 404
-    line: Not very well...
+    line: Bad.
     lineStayTime: 3
     clip: {fileID: 0}
   - charName: ???
-    line: Am sorry to hear that...
+    line: I'm sorry to hear that...
     lineStayTime: 3
     clip: {fileID: 8300000, guid: 18f7ae604888f5f48ab872d2306f3464, type: 3}
-  - charName: 
-    line: 
-    lineStayTime: 0
+  - charName: 404
+    line: Hey! You know my name, why don't I know yours?
+    lineStayTime: 3
     clip: {fileID: 0}
-  - charName: 
-    line: 
-    lineStayTime: 0
+  - charName: ???
+    line: "It\u2019s not important. "
+    lineStayTime: 3
+    clip: {fileID: 8300000, guid: 2ae5ca0d1b760f3479f1b6df28aae561, type: 3}
+  - charName: 404
+    line: I want to know your name, please?
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: "\u2026Sylvia.  "
+    lineStayTime: 3
+    clip: {fileID: 8300000, guid: f05a0a48ce7a9de4f92e04482fe36ce3, type: 3}
+  - charName: 404
+    line: "That\u2019s a pretty name. "
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: "Ahem\u2026thank you.  "
+    lineStayTime: 3
+    clip: {fileID: 8300000, guid: a273c172501dc964e91b23bf3524fe2c, type: 3}
+  - charName: 404
+    line: 'How long until the good people come find me?  '
+    lineStayTime: 3
+    clip: {fileID: 0}
+  - charName: Sylvia
+    line: 'Not long. Keep looking around in the meantime. Try to stay warm.  '
+    lineStayTime: 3
+    clip: {fileID: 8300000, guid: 7b70b688ea0bc0844bda8bb64d1adf7f, type: 3}
+  - charName: 404
+    line: 'Okay!  '
+    lineStayTime: 3
     clip: {fileID: 0}

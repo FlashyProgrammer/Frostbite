@@ -32,7 +32,7 @@ public class RoverPoint : MonoBehaviour, IInteractable
             }
 
         }
-
+        if(TryGetComponent<DialogueTrigger>(out DialogueTrigger dialogueTrigger)) dialogueTrigger.EnableTrigger();
         return true;
     }
 }
