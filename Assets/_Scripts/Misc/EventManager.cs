@@ -14,7 +14,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private AudioSource alermSound;
 
 
-    public bool lightsOff;
+    private bool lightsOff;
     private readonly HashSet<GameObject> enemiesInside = new HashSet<GameObject>();
     private readonly List<GameObject> toRemove = new List<GameObject>();
     private readonly List<Coroutine> flickerRoutines = new List<Coroutine>();
@@ -40,6 +40,18 @@ public class EventManager : MonoBehaviour
         if (lightsOff)
         {
             alermSound.Stop();
+        }
+
+        foreach (Light light in facilityLights)
+        {
+            if (light != null && !light.enabled)
+            {
+                lightsOff = true;
+            }
+            else
+            {
+                lightsOff = false;
+            }
         }
     }
 
@@ -81,12 +93,15 @@ public class EventManager : MonoBehaviour
 
     private void StartEvent()
     {
-        bool lightsOff = false;
         foreach (Light light in facilityLights)
         {
             if (light != null && !light.enabled)
             {
                 lightsOff = true;
+            }
+            else
+            {
+                lightsOff = false;
             }
         }
 

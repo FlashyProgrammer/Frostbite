@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
   m_Name: Lockers
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  charVoiceLines:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   charLines:
   - charName: ???
     line: That's the item locker.
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: bb504f9af8218b244b43917e8f43a72f, type: 3}
   - charName: ???
     line: You get items after a certain amount of time. Be sure to collect them.
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 7a2296fc2fe09db469cd5942e42a59cb, type: 3}
   - charName: ???
     line: They will be useful to you.
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 587324db04d29344ebbafcbef59d876a, type: 3}

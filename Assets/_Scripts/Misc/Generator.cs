@@ -48,7 +48,11 @@ public class Generator : MonoBehaviour, IInteractable
         else
         {
             generatorDown = true;
-            if(TryGetComponent<DialogueTrigger>(out generatorDialogue)) generatorDialogue.TriggerDialogue();
+
+            if(TryGetComponent<DialogueTrigger>(out generatorDialogue))
+            {
+                generatorDialogue.EnableTrigger();
+            }
 
             foreach (Light light in facilityLights)
             {

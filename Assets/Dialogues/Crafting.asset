@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
   m_Name: Crafting
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  charVoiceLines:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   charLines:
   - charName: '404 '
     line: "There\u2019s stuff on this table.  "
     lineStayTime: 2
+    clip: {fileID: 0}
   - charName: ???
     line: 'You can use the tools on the table if you want.  '
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 9e4de5852f82fa842a65c3d143e93937, type: 3}
   - charName: 404
     line: 'What do I do with them? '
     lineStayTime: 2
+    clip: {fileID: 0}
   - charName: ???
     line: You can make things, try it
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 073ed8e04b354e54d9067a670e7fe607, type: 3}

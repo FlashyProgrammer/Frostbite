@@ -3,8 +3,13 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private Dialogue[] dialogue;
-    private int dialogueCount;
-    
+    [SerializeField] private bool isOneTime;
+    private int dialogueCount = 0;
+
+    private void OnEnable()
+    {
+        if(isOneTime) TriggerDialogue();
+    }
     private void Start()
     {
         TriggerDialogue();

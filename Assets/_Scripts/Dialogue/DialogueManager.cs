@@ -58,9 +58,9 @@ public class DialogueManager : MonoBehaviour
         }
 
        
-        foreach (AudioClip voiceline in character.charVoiceLines)
+        foreach (var voiceline in character.charLines)
         {
-            voiceList.Enqueue(voiceline);
+            voiceList.Enqueue(voiceline.clip);
         }
        
         currentLine = lineList.Dequeue();

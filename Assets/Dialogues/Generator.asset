@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d65a25843a2ebe4aa7d8116cd0ce451, type: 3}
   m_Name: Generator
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  charVoiceLines:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   charLines:
   - charName: ???
     line: The generator is down.
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 5de808edb44dc8542beb422662cf0673, type: 3}
   - charName: ???
     line: You'll need a crowbar to pry it open, look for one in the crates.
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: cdca9723b90287045a43cbadeb992680, type: 3}
   - charName: ???
     line: Hurry, the red dots are still moving!
     lineStayTime: 2
+    clip: {fileID: 8300000, guid: 4958ca1f5315fd3489151e9260353ab5, type: 3}
