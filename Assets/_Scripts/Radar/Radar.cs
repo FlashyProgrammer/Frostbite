@@ -192,5 +192,13 @@ public class Radar : MonoBehaviour, IInteractable
             player.enabled = true;
             mouseLook.enabled = true;
         }
+
+        foreach (var enemy in spawner.activeEnemies)
+        {
+            if (enemy != null)
+            {
+                enemy.GetComponent<Image>().enabled = false;
+            }
+        }
     }
 }

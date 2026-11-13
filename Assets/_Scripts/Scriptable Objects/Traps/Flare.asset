@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Flare
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Flare
-  itemDescription: Stuns stalkers for a certain amount of time.
+  itemDescription: ' One-use and sends stalkers back one ring. Crouch and place it
+    under the door. I think they''re the same sticks that the soldiers threw when
+    they found me the first time.'
   itemIcon: {fileID: 21300000, guid: 5dd76eccb85920948941d3ac244b62d4, type: 3}
   itemObject: {fileID: 8512693948114522977, guid: 6d669c902e1f16740a3b5b34a9aacbb8, type: 3}
   canStack: 0

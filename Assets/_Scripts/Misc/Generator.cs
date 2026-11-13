@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 public class Generator : MonoBehaviour, IInteractable
 {
     [Header("Facility Variables")]
-
     [SerializeField] private List<Light> facilityLights;
     [SerializeField] private List<Radar> enemyRadars;
 

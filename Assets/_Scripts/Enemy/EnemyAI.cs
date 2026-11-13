@@ -193,7 +193,6 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator IdleState()
     {
-        Debug.Log("Is Idle");
         animator.Play("Idle");
         travelling = false;
         idleTime = Random.Range(minIdleTime, maxIdleTime);

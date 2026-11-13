@@ -43,6 +43,7 @@ public class GameMaster : MonoBehaviour
     private void Awake()
     {
         playerMovement.enabled = true;
+        GetComponent<PlayableDirector>().Play();
 
     }
     public void GameOver()
@@ -83,6 +84,7 @@ public class GameMaster : MonoBehaviour
             spawner.activeEnemies.Clear();
             spawner.enabled = false;
         }
+        AudioListener.pause = false;
 
     }
     public void RestartButton()
@@ -100,6 +102,12 @@ public class GameMaster : MonoBehaviour
         Application.Quit();
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+        AudioListener.pause = false;
+        Time.timeScale = 1f;
+    }
     public void Pause(InputAction.CallbackContext context)
     {
         if (context.performed && pauseCounter == 0 && playerMovement.enabled)

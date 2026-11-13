@@ -48,4 +48,16 @@ public class CameraMove : MonoBehaviour
         followPoint.rotation = new Quaternion (transform.position.x, transform.position.y, 0, 0);
 
     }
+
+    public void SetSenseX(float senseX)
+    {
+        mouseSensitivityX = senseX;
+        controllerSensitivityX = senseX;
+    }
+
+    public void SetSenseY(float senseY)
+    {
+        mouseSensitivityY = senseY;
+        controllerSensitivityY = senseY;
+    }
 }

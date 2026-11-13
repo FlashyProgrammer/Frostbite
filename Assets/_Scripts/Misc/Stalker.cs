@@ -8,7 +8,7 @@ public class Stalker : MonoBehaviour, IInteractable
     [SerializeField] private DialogueTrigger dialogueTrigger;
     public bool Interact()
     {
-        dialogueTrigger.enabled = true;
+        if(dialogueTrigger != null) dialogueTrigger.enabled = true;
         return true;
     }
 }

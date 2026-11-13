@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Misc")]
     [SerializeField] private CinemachineBasicMultiChannelPerlin headbob;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private Animator playerAnimator;
 
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 5f;
@@ -45,12 +46,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         inputs.Enable();
+        playerVelocity = Vector3.zero;
+        playerAnimator.SetFloat("moveVelocity", 0f);
     }
     private void OnDisable()
     {
         playerVelocity = Vector3.zero;
-
-        if(audioManager.GetPlayerSource() != null) audioManager.GetPlayerSource().Stop();
+        playerAnimator.SetFloat("moveVelocity", 0f);
+        if (audioManager.GetPlayerSource() != null) audioManager.GetPlayerSource().Stop();
         inputs.Disable();
     }
 
@@ -68,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
             audioManager.GetPlayerSource().Stop();
         }
 
+        float moveSpeed = new Vector3(player.velocity.x, 0, player.velocity.z).magnitude;
+        playerAnimator.SetFloat("moveVelocity", moveSpeed);
         playerVelocity.y += playerGravity * Time.deltaTime;
         player.Move(playerVelocity);
         
