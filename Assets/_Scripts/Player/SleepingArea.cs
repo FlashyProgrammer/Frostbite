@@ -4,8 +4,8 @@ using UnityEngine.Playables;
 public class SleepingArea : MonoBehaviour, IInteractable
 {
 
-    [HideInInspector] public bool canSleep = true;
-    [HideInInspector] public bool isCompleted = false;
+     public bool canSleep = true;
+     public bool isCompleted = false;
 
     [Header("Game Master")]
     [SerializeField] private GameMaster gameMaster;
@@ -21,6 +21,7 @@ public class SleepingArea : MonoBehaviour, IInteractable
             sceneDirector.playableAsset = nightTimeline;
             canSleep = false;
             isCompleted = false;
+            sceneDirector.time = 0;
             sceneDirector.Play();
         }
 
@@ -38,6 +39,7 @@ public class SleepingArea : MonoBehaviour, IInteractable
         canSleep = true;
         canSleep = false;
         isCompleted = false;
+        sceneDirector.time = 0;
         sceneDirector.Play();
     }
 

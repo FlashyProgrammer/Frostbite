@@ -20,7 +20,7 @@ MonoBehaviour:
   - charName: Sylvia
     line: "That\u2019s a rover. "
     lineStayTime: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 21c301f818d06f244a19d415bdeb8f56, type: 3}
   - charName: 404
     line: 'Can I use it? '
     lineStayTime: 3
@@ -28,11 +28,11 @@ MonoBehaviour:
   - charName: Sylvia
     line: 'Yes, you can. '
     lineStayTime: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 5049392469db7ba4b9d81536fc8d1e71, type: 3}
   - charName: Sylvia
     line: "You can\u2019t go outside, but the rover can, so you can gather more materials.  "
     lineStayTime: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 48b512c746a1d954cbd1a62b2ecdef53, type: 3}
   - charName: 404
     line: "It\u2019s like a toy car! "
     lineStayTime: 3
@@ -40,4 +40,4 @@ MonoBehaviour:
   - charName: Sylvia
     line: "Yeah\u2026something like that\u2026 "
     lineStayTime: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 31abaf8494d207c4a9fbdbc8947b2272, type: 3}

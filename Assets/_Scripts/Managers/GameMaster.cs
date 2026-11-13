@@ -43,6 +43,7 @@ public class GameMaster : MonoBehaviour
     private void Awake()
     {
         playerMovement.enabled = true;
+
     }
     public void GameOver()
     {
@@ -62,12 +63,14 @@ public class GameMaster : MonoBehaviour
         if (TryGetComponent<PlayableDirector>(out PlayableDirector playableDirector))
         {
             playableDirector.playableAsset = deathCutscene;
+            playableDirector.time = 0;
             playableDirector.Play();
         }
 
     }
     public void DayOver()
     {
+       
         sleepingArea.isCompleted = true;
         sleepingArea.canSleep = true;
         foreach (var spawner in enemySpawners)

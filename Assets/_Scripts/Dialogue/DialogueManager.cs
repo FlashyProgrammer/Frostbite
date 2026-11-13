@@ -154,7 +154,6 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
             director.time = director.duration;
             director.Evaluate();
-            director.Stop();
         }
     }
 
