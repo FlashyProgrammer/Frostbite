@@ -40479,8 +40479,8 @@ MonoBehaviour:
   - {fileID: 1880730677}
   - {fileID: 1037932864}
   - {fileID: 1977347537}
-  minTime: 10
-  maxTime: 10
+  minTime: 120
+  maxTime: 120
   requiredItems:
   - {fileID: 11400000, guid: 3aa84b2e35758ad428705efe985a7929, type: 2}
   scenePostProcessing: {fileID: 832575518}

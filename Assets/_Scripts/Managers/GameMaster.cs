@@ -39,6 +39,11 @@ public class GameMaster : MonoBehaviour
         {
             playerMovement.enabled = true;
         }
+
+        if (gameOverUI.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     private void Awake()
     {
